@@ -103,7 +103,6 @@ app.post('/login', function(request, response){
   connection.query(sql, userMail,function (err, result) {
     if(err) console.log(err);
 
-    console.log(result[0].CNT);
     if(result[0].CNT>0) {
       var sql = 'SELECT USER_ID, USER_PASSWD FROM USER_INFO WHERE USER_MAIL = ?';
       connection.query(sql, userMail,function (err, result) {
