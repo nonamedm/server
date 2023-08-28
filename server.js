@@ -94,6 +94,7 @@ app.post('/register',function(request, response){
 })
 
 app.post('/login', function(request, response){
+  var userId = '';
   var userMail = request.body.userMail;
   var userPasswd = request.body.userPasswd;
 
@@ -104,10 +105,11 @@ app.post('/login', function(request, response){
     if(err) console.log(err);
 
     if(result[0].CNT>0) {
-      var sql = 'SELECT USER_ID, USER_PASSWD FROM USER_INFO WHERE USER_MAIL = ?';
+      var sql = 'SELECT USER_ID, USER_PASSWD, USER_NAME FROM USER_INFO WHERE USER_MAIL = ?';
       connection.query(sql, userMail,function (err, result) {
         if(err) console.log(err);
-        var userId = result[0].USER_ID;
+        userId = result[0].USER_ID;
+        userName = result[0].USER_NAME;
         var getUserPasswd = result[0].USER_PASSWD;
       
         const hash = crypto
@@ -117,15 +119,20 @@ app.post('/login', function(request, response){
         if(hash==getUserPasswd){
           //비번일치
           msg='9';
+          var returnMsg = {"msg":msg, "userName":userName, "userId":userId};
+          response.send(returnMsg);
         }else {
           //비번불일치
           msg='2';
+          var returnMsg = {"msg":msg, "userName":userName, "userId":userId};
+          response.send(returnMsg);
         }
       });
     } else {
       msg = '1';
+      var returnMsg = {"msg":msg, "userName":userName, "userId":userId};
+      response.send(returnMsg);
     }
-    response.send(msg);
   });
   
 })
