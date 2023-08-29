@@ -30,12 +30,12 @@ app.use(express.json());
 var cors = require('cors');
 app.use(cors());
 
-app.use(express.static(path.join(__dirname,'research/build')));
+app.use(express.static(path.join(__dirname,'researchf/build')));
 app.use(bodyParser.urlencoded({extended:true}));
 
 
 app.get('/',function(request, response){
-  response.sendFile(path.join(__dirname, 'research/build/index.html'));
+  response.sendFile(path.join(__dirname, 'researchf/build/index.html'));
 })
 
 app.get('/product',function(request, response){
@@ -138,7 +138,7 @@ app.post('/login', function(request, response){
 })
 
 app.get('*',function(request,response){
-  response.sendFile(path.join(__dirname,'research/build/index.html'));
+  response.sendFile(path.join(__dirname,'researchf/build/index.html'));
 })
 
 
