@@ -367,7 +367,7 @@ const MobileNavMenu = () => {
             </li>
             <li>
               <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                {t("my_account")}
+                {t("my_page")}
               </Link>
             </li>
             <li>

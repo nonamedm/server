@@ -277,7 +277,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
               </li>
               <li>
                 <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                  {t("my_account")}
+                  {t("my_page")}
                 </Link>
               </li>
               <li>
@@ -302,7 +302,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
               </li>
             </ul>
           </li>
-          <li>
+          {/*<li>
             <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
               {t("blog")}
               {sidebarMenu ? (
@@ -335,7 +335,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                 </Link>
               </li>
             </ul>
-          </li>
+          </li>*/}
           <li>
             <Link to={process.env.PUBLIC_URL + "/contact"}>
               {t("contact_us")}

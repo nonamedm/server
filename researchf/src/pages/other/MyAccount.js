@@ -22,7 +22,12 @@ const MyAccount = () => {
             {label: "My Account", path: process.env.PUBLIC_URL + pathname }
           ]} 
         />
-        
+        {/* 마이페이지부터 수정한다
+          일반인, 전문가 바인딩 하고
+          리스트 출력하는 레이아웃 잡은 뒤
+          장바구니, 찜 같은거 연결하고
+          전문가는 우선 상품등록만 먼저 완료하기
+        */}
         <div className="myaccount-area pb-80 pt-100">
           <div className="container">
             <div className="row">
