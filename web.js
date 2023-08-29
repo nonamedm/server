@@ -141,6 +141,6 @@ app.get('*',function(request,response){
   response.sendFile(path.join(__dirname,'/researchf/build/index.html'));
 })
 
-
+app.set('views', __dirname + '/views');
   
 //connection.end();
