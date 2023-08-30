@@ -263,8 +263,9 @@
   padding: "10px 0px";
   margin-bottom: 20px;
 }
-.contact-form1 {
+.myaccount-form {
   padding: 10px;
+  height: 100%;
 
   background-color: #f3f3f3;
   @media #{$lg-layout} {
@@ -278,7 +279,6 @@
   }
   .contact-title {
     h2 {
-      font-size: 24px;
       font-weight: 500;
       line-height: 1;
 
