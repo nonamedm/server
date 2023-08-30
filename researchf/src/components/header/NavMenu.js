@@ -225,7 +225,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
           </li> */}
           <li>
             <Link onClick={() => triggerMobileMenu()}>
-              <i class="pe-7s-menu"></i>
+              <i className="pe-7s-menu"></i>
             </Link>
           </li>
           <li>

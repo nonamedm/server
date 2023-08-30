@@ -253,3 +253,78 @@
     }
   }
 }
+.panel-heading > a {
+  font-size: 20px;
+}
+.panel-second {
+  margin-left: 20px;
+}
+.mypage-header {
+  padding: "10px 0px";
+  margin-bottom: 20px;
+}
+.contact-form1 {
+  padding: 10px;
+
+  background-color: #f3f3f3;
+  @media #{$lg-layout} {
+    padding: 50px 50px 50px 50px;
+  }
+  @media #{$md-layout} {
+    padding: 50px 30px 50px 30px;
+  }
+  @media #{$xs-layout} {
+    padding: 50px 30px 50px 30px;
+  }
+  .contact-title {
+    h2 {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1;
+
+      margin-bottom: 36px;
+
+      color: #464646;
+    }
+  }
+  .contact-form-style {
+    input,
+    textarea {
+      height: 40px;
+      margin-bottom: 30px;
+      padding: 2px 14px;
+
+      color: #000;
+      border: 1px solid #c1c1c1;
+      background: transparent;
+    }
+    textarea {
+      height: 175px;
+      margin-bottom: 0;
+      padding: 20px 14px;
+    }
+    button {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1;
+
+      margin-top: 38px;
+      padding: 15px 52px;
+
+      text-transform: uppercase;
+
+      color: #fff;
+      border: none;
+      background-color: #404040;
+      &:hover {
+        background-color: $theme-color;
+      }
+    }
+  }
+  p {
+    color: #333;
+    &.success {
+      margin-top: 10px;
+    }
+  }
+}
