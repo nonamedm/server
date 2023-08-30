@@ -1,3 +1,4 @@
 vscode로 커밋푸시 한 다음
 researchf 에서 빌드한 다음 빌드폴더 상위로 복붙하기(덮어쓰기)
+서버에서 npm start 실행 후 잘되는지 먼저 확인하기
 이후 git push cafe24 master 명령어 실행하기 -> 카페24 빌드
