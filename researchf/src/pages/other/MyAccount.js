@@ -1,6 +1,6 @@
 import { Fragment } from "react"; 
 import { useLocation } from "react-router-dom";
-import Accordion from "react-bootstrap/Accordion";
+import MyProject from "../../components/other/MyProject";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
@@ -93,16 +93,7 @@ const MyAccount = () => {
                 </div>
               </div>
               <div className="col-12 col-lg-9 col-md-8">
-                <div className="myaccount-form">
-                  <div className="myaccount-title mb-30">
-                    <h2>My Projects</h2>
-                  </div>
-                  <div className="">
-                    <div>
-
-                    </div>
-                  </div>
-                </div>
+                <MyProject></MyProject>
               </div>
             </div>
           </div>
