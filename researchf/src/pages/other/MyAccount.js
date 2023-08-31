@@ -1,10 +1,11 @@
 import { Fragment } from "react"; 
 import { useLocation } from "react-router-dom";
-import MyProject from "../../components/other/MyProject";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { Link } from "react-router-dom";
+import MyProject from "../../components/other/MyProject";
+import MyAccountMenu from "../../components/other/MyAccountMenu";
 
 const MyAccount = () => {
   let { pathname } = useLocation();
@@ -33,64 +34,7 @@ const MyAccount = () => {
           <div className="container">
             <div className="custom-row-2">
               <div className="col-12 col-lg-3 col-md-4">
-                <div className="contact-info-wrap1">
-                  <div className="mypage-header"><h2>My Page</h2>
-                  </div>
-                  <div>
-                    <div className="single-my-account mb-20">
-                      <div className="single-my-account mb-20">
-                        <h2 className="panel-heading">                          
-                          <a href="">My Projects </a>                         
-                        </h2>
-                        <p className="panel-second">Overall (0)</p>
-                        <p className="panel-second">Waiting for approval (0)</p>
-                        <p className="panel-second">Requesting (0)</p>
-                        <p className="panel-second">Closing (0)</p>
-                        <p className="panel-second">Not approved (0)</p>
-                      </div>
-                    </div>
-
-
-                    <div className="single-my-account mb-20">
-                      <div className="single-my-account mb-20">
-                        <h2 className="panel-heading">
-                          <a href="">Purchase</a>
-                        </h2>
-                      </div>
-                    </div>
-
-                    <div className="single-my-account mb-20">
-                      <div className="single-my-account mb-20">
-                        <h2 className="panel-heading">
-                          <a href="">Cash</a>                            
-                        </h2>
-                      </div>
-                    </div>
-
-                    <div className="single-my-account mb-20">
-                      <div className="single-my-account mb-20">
-                        <h2 className="panel-heading">
-                          <a href="">Recharge Cash</a>                            
-                        </h2>
-                      </div>
-                    </div>
-
-                    <div className="single-my-account mb-20">
-                      <div className="single-my-account mb-20">
-                        <h2 className="panel-heading">
-                          <a href="">Coupon</a>                            
-                        </h2>
-                      </div>
-                    </div>
-                    <div className="single-my-account mb-20">
-                      <div className="single-my-account mb-20">
-                        <h2 className="panel-heading">
-                          <a href="">Payment details</a>                            
-                        </h2>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <MyAccountMenu></MyAccountMenu>
               </div>
               <div className="col-12 col-lg-9 col-md-8">
                 <MyProject></MyProject>
