@@ -10,8 +10,8 @@ import axios from 'axios';
 const LoginRegister = () => {
   let { pathname } = useLocation();
   const [formData, setFormData] = useState({});
-  var apiUrl = "http://localhost:8001"; //개발서버용
-  // var apiUrl = ""; //운영서버용
+  // var apiUrl = "http://localhost:8001"; //개발서버용
+  var apiUrl = ""; //운영서버용
   
   const loginSubmit = async(e) => {
     e.preventDefault();
