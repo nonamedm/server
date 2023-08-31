@@ -49,16 +49,15 @@ app.get('/product',function(request, response){
 app.post('/register',function(request, response){
   
   var userEmail = request.body.email;
-  var sql = 'SELECT count(*) FROM USER_INFO WHERE USER_MAIL = ?';
+  var sql = 'SELECT count(*) AS CNT FROM USER_INFO WHERE USER_MAIL = ?';
 
   var msg = '0'; // 기본 0, 아이디중복 1, 기타 2, 완료 9 
   connection.query(sql, userEmail, function(err, rows, fields){
     if(err) console.log(err);
     // console.log("결과",rows);
-    if(rows.length>0) {
+    if(rows[0].CNT>0) {
       msg = '1';
-    } else {
-      
+    } else {      
       const plainPassword = request.body.password;
       const userEmail = request.body.email;
       const userJob = request.body.job;
@@ -135,6 +134,36 @@ app.post('/login', function(request, response){
     }
   });
   
+})
+
+app.post('/myProjectList', function(request, response){
+  var userId = request.body.userId;
+
+  var sql = `SELECT IDX
+                    , STAY_YN
+                    , OUTSOURCING_YN
+                    , BUDGET
+                    , GOV_SUPPORT
+                    , CATEGORY1
+                    , CATEGORY2
+                    , POSITION_NM
+                    , PERSONAL_YN
+                    , CORP_YN
+                    , PERSONAL_NM
+                    , NOW_STATUS1, NOW_STATUS2, NOW_STATUS3, NOW_STATUS4
+                    , DETAIL_CONT
+                    , DETAIL_PRICE
+                    , DUE_DT, REGIST_DT, UPDATE_DT
+                    , DELETE_YN
+                    , APPROVAL_STATUS
+                FROM PROJECT_REQUEST WHERE REQ_USER_ID=?`;
+  
+  connection.query(sql, userId,function (err, result) {
+    if(err) console.log(err);
+    //console.log(result);
+
+    response.send(result);
+  });
 })
 
 app.get('*',function(request,response){

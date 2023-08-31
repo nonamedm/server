@@ -10,12 +10,13 @@ import axios from 'axios';
 const LoginRegister = () => {
   let { pathname } = useLocation();
   const [formData, setFormData] = useState({});
-
-
+  var apiUrl = "http://localhost:8001"; //개발서버용
+  // var apiUrl = ""; //운영서버용
+  
   const loginSubmit = async(e) => {
     e.preventDefault();
     try{
-      const response = await axios.post('/login',formData);
+      const response = await axios.post(apiUrl+'/login',formData);
       // console.log(response.data);
       if(response.data.msg==1) {
         alert("이메일을 확인해 주세요.");
@@ -37,7 +38,7 @@ const LoginRegister = () => {
   const registerSubmit = async(e) => {
     e.preventDefault();
     try{
-      const response = await axios.post('/register',formData);
+      const response = await axios.post(apiUrl+'/register',formData);
       console.log(response.data);
       if(response.data==1) {
         alert("이미 가입된 이메일입니다.");

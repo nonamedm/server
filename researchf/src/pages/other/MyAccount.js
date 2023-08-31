@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import { Link } from "react-router-dom";
 import MyProject from "../../components/other/MyProject";
 import MyAccountMenu from "../../components/other/MyAccountMenu";
 
