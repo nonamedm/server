@@ -79,11 +79,6 @@ const IconGroup = ({ iconWhiteClass }) => {
                   Register
                 </Link>
               </li>
-              <li>
-                <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                  my account
-                </Link>
-              </li>
             </ul>
           }
         </div>
