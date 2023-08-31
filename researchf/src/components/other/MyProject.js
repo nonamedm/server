@@ -3,8 +3,8 @@ import MyProjectCard from "./MyProjectCard";
 import { useEffect, useState } from "react";
 
 const MyProject = () => {
-  // var apiUrl = "http://localhost:8001"; //개발서버용
-  var apiUrl = ""; //운영서버용
+  var apiUrl = "http://localhost:8001"; //개발서버용
+  // var apiUrl = ""; //운영서버용
   
   let sessionStorage = window.sessionStorage;
   let [myProjectData,setMyProjectData] = useState([]);
