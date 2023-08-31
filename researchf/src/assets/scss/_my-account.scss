@@ -282,6 +282,12 @@
   display: flex;
   flex-direction: column;
 }
+.prj-cont-empty {
+  width: 70%;
+  padding-left: 10%;
+  display: flex;
+  flex-direction: column;
+}
 .my-project-card {
   width: 100%;
   height: 170px;
@@ -360,4 +366,156 @@
       margin-top: 10px;
     }
   }
+}
+
+/* Customize the label (the round-check) */
+.round-check {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.round-check h4 {
+  font-weight: 600;
+}
+
+/* Hide the browser's default checkbox */
+.round-check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #c8c8c8;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+input ~ .checkmark {
+  background-color: #c8c8c8;
+}
+
+/* When the checkbox is checked, add a blue background */
+input:checked ~ .checkmark {
+  background-color: #119119;
+}
+input[type=radio]  {
+  width: 30px;
+  accent-color:#119119;
+}
+.input[type=radio]:checked {
+  width: 30px;
+  accent-color:#119119;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.project-modal {
+  width: 600px;
+  height: 600px;
+  position: fixed;
+  z-index: 2;
+  top: 25%;
+  left: 35%;
+}
+.project-modal-header {
+  height: 50px;
+  background-color: #587DE6;
+}
+.project-modal-header h4 {
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+.project-modal-content {
+  padding: 40px;
+  background-color: white;
+  height: 600px;
+}
+.close-modal {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  color: white;
+  background-color: #587de6;
+}
+.modal-back {
+  position: fixed;
+  top:0; left: 0; bottom: 0; right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+.project-modal-h4 {
+  font-weight: 600;
+}
+.project-modal-box {
+  border: 1px solid #c8c8c8;
+  padding: 15px;
+  margin: 20px 0px;
+}
+.project-modal-next {
+  position: inherit;
+  right: 40px;
+  width: 150px;
+  height: 50px;
+  margin: auto;
+  border: none;
+  background-color: #404040;
+  color: #eee;
+}
+.project-modal-select {
+  border: 1px solid #c8c8c8;
+  width: 200px;
+  height: 35px;
+  margin: 0 10px;
+}
+.project-modal-cont {
+  margin: 10px;
+  border: 1px solid #c8c8c8;
+  width: 475px;
+}
+.project-modal-text {
+  display: flex;
+  margin: 20px 0px;
+  flex-direction: column;
+}
+.project-modal-selectlabel {
+  display: flex;
 }
