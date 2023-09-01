@@ -29,8 +29,11 @@ const MyProject = (props) => {
 
   return (
     <div className="myproject-form">
-      <div className="myproject-title mb-30">
-        <h2>My Projects</h2>
+      <div style={{display:"flex",justifyContent: "space-between"}}>
+        <div className="myproject-title mb-30">
+          <h2>My Projects</h2>
+        </div>
+        <button className="prj-sts-btn" onClick={openModal} style={{margin:"0"}}>프로젝트 의뢰하기</button>
       </div>
       <div className="my-projects">
         {
