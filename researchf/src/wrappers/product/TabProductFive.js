@@ -16,29 +16,14 @@ const TabProductFive = ({
   return (
     <div className={clsx("product-area", spaceTopClass, spaceBottomClass)}>
       <div className="container">
-        <Tab.Container defaultActiveKey={t("favorite_services")}>
+        <Tab.Container defaultActiveKey={t("recommended_service")}>
           <Nav
             variant="pills"
-            className={clsx("product-tab-list-2 mb-60", productTabClass)}
+            className={clsx("product-tab-list-2 mt-60 mb-20", productTabClass)}
           >
             <Nav.Item>
               <Nav.Link eventKey={t("recommended_service")}>
                 <h4>{t("recommended_service")}</h4>
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey={t("recently_search_associated_service")}>
-                <h4>{t("recently_search_associated_service")}</h4>
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey={t("favorite_services")}>
-                <h4>{t("favorite_services")}</h4>
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey={t("recommended_category")}>
-                <h4>{t("recommended_category")}</h4>
               </Nav.Link>
             </Nav.Item>
           </Nav>
@@ -48,51 +33,99 @@ const TabProductFive = ({
                 <ProductGridTwo
                   category={category}
                   type="new"
-                  limit={8}
-                  spaceBottomClass="mb-25"
-                />
-              </div>
-            </Tab.Pane>
-            <Tab.Pane eventKey={t("recently_search_associated_service")}>
-              <div className="row">
-                <ProductGridTwo
-                  category={category}
-                  type="bestSeller"
-                  limit={8}
-                  spaceBottomClass="mb-25"
-                />
-              </div>
-            </Tab.Pane>
-            <Tab.Pane eventKey={t("favorite_services")}>
-              <div className="row">
-                <ProductGridTwo
-                  category={category}
-                  type="bestSeller"
-                  limit={8}
-                  spaceBottomClass="mb-25"
-                />
-              </div>
-            </Tab.Pane>
-            <Tab.Pane eventKey={t("recommended_category")}>
-              <div className="row">
-                <ProductGridTwo
-                  category={category}
-                  type="saleItems"
-                  limit={8}
+                  limit={4}
                   spaceBottomClass="mb-25"
                 />
               </div>
             </Tab.Pane>
           </Tab.Content>
         </Tab.Container>
-        <div className="view-more text-center mt-20 toggle-btn6 col-12">
+        {/**<div className="view-more text-center mt-20 toggle-btn6 col-12">
           <Link
             className="loadMore6"
             to={process.env.PUBLIC_URL + "/shop-grid-standard"}
           >
             VIEW MORE PRODUCTS
           </Link>
-        </div>
+        </div>*/}
+      </div>
+      <div className="container">
+        <Tab.Container defaultActiveKey={t("recently_search_associated_service")}>
+          <Nav
+            variant="pills"
+            className={clsx("product-tab-list-2 mt-60 mb-20", productTabClass)}
+          >
+            <Nav.Item>
+              <Nav.Link eventKey={t("recently_search_associated_service")}>
+                <h4>{t("recently_search_associated_service")}</h4>
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+          <Tab.Content>
+            <Tab.Pane eventKey={t("recently_search_associated_service")}>
+              <div className="row">
+                <ProductGridTwo
+                  category={category}
+                  type="bestSeller"
+                  limit={4}
+                  spaceBottomClass="mb-25"
+                />
+              </div>
+            </Tab.Pane>
+          </Tab.Content>
+        </Tab.Container>
+      </div>
+      <div className="container">
+        <Tab.Container defaultActiveKey={t("favorite_services")}>
+          <Nav
+            variant="pills"
+            className={clsx("product-tab-list-2 mt-60 mb-20", productTabClass)}
+          >
+            <Nav.Item>
+              <Nav.Link eventKey={t("favorite_services")}>
+                <h4>{t("favorite_services")}</h4>
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+          <Tab.Content>
+            <Tab.Pane eventKey={t("favorite_services")}>
+              <div className="row">
+                <ProductGridTwo
+                  category={category}
+                  type="bestSeller"
+                  limit={4}
+                  spaceBottomClass="mb-25"
+                />
+              </div>
+            </Tab.Pane>
+          </Tab.Content>
+        </Tab.Container>
+      </div>
+      <div className="container">
+        <Tab.Container defaultActiveKey={t("recommended_category")}>
+          <Nav
+            variant="pills"
+            className={clsx("product-tab-list-2 mt-60 mb-20", productTabClass)}
+          >
+            <Nav.Item>
+              <Nav.Link eventKey={t("recommended_category")}>
+                <h4>{t("recommended_category")}</h4>
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+          <Tab.Content>
+            <Tab.Pane eventKey={t("recommended_category")}>
+              <div className="row">
+                <ProductGridTwo
+                  category={category}
+                  type="saleItems"
+                  limit={4}
+                  spaceBottomClass="mb-25"
+                />
+              </div>
+            </Tab.Pane>
+          </Tab.Content>
+        </Tab.Container>
       </div>
     </div>
   );

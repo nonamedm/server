@@ -32,6 +32,11 @@ const HeroSliderNineSingle = ({ data, sliderClass }) => {
               ></p>
             </div>
           </div>
+          <div className="col-xl-6 col-lg-6 col-md-7">
+            <div className="slider-content-2 slider-animated-1">
+              <img className="animated" src="/assets/img/slider/slider-2-2-illust.png" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
