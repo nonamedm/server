@@ -10,23 +10,7 @@ const MyProject = (props) => {
     props.openModal();
   }
   
-  let sessionStorage = window.sessionStorage;
-  let [myProjectData,setMyProjectData] = useState([]);
-  var loginId = sessionStorage.getItem("loginId");
-
-    useEffect(() => {
-      axios.post(apiUrl+'/myProjectList',{
-          userId: loginId
-        }).then(function (response) {
-          //console.log(response.data);
-          setMyProjectData(response.data);
-        }).catch(function(error) {
-        
-        }).then(function () {
-          //finally
-        });
-    }, []);
-
+  let myProjectData = props.myProjectData;
   return (
     <div className="myproject-form">
       <div style={{display:"flex",justifyContent: "space-between"}}>
@@ -39,11 +23,23 @@ const MyProject = (props) => {
         {
           myProjectData.length>0 ?
           myProjectData.map((a,i)=>{
-            return (
-              <MyProjectCard data={myProjectData[i]} i={i} key={i}>
-
-              </MyProjectCard>
-            )
+            if(props.myProjectList==9) {
+              return (
+                <MyProjectCard data={myProjectData[i]} i={i} key={i} >
+  
+                </MyProjectCard>
+              )
+            } else {
+              if(props.myProjectList==myProjectData[i].APPROVAL_STATUS) {
+                return (
+                  <MyProjectCard data={myProjectData[i]} i={i} key={i} >
+    
+                  </MyProjectCard>
+                )
+              } else {
+                
+              }
+            }
           })
           :
           <div className="my-project-card">

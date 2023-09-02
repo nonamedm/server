@@ -1,11 +1,14 @@
 import MyAccountMenuDetailUser from "./MyAccountMenuDetailUser";
 
-const MyAccountMenuDetail = () => {
-  let sessionStorage = window.sessionStorage;
-  var loginId = sessionStorage.getItem("loginId");
+const MyAccountMenuDetail = (props) => {
 
   return (    
-    <MyAccountMenuDetailUser></MyAccountMenuDetailUser>
+    <MyAccountMenuDetailUser
+      myProjectData={props.myProjectData}
+      setMyProjectList={props.setMyProjectList}
+      setMyAccountMenuName={props.setMyAccountMenuName}>
+      
+    </MyAccountMenuDetailUser>
   );
 };
 

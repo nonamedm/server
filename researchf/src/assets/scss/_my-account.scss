@@ -253,11 +253,13 @@
     }
   }
 }
-.panel-heading > a {
+.panel-heading > p {
   font-size: 20px;
+  cursor: pointer;
 }
 .panel-second {
   margin-left: 20px;
+  cursor: pointer;
 }
 .mypage-header {
   padding: "10px 0px";
@@ -531,4 +533,27 @@ input:checked ~ .checkmark:after {
 }
 .project-modal-selectlabel {
   display: flex;
+}
+.purchase-li {
+  list-style: disc;
+  list-style-position: outside;
+  margin-left: 20px;
+}
+.purchase-status {
+  display: flex;
+}
+.purchase-status-card {
+  border: 1px solid #c8c8c8;
+  width: 200px;
+  height: 200px;
+  margin-right: 20px;
+  padding: 25px;
+  text-align: center;
+}
+.purchase-status-card h4 {
+  font-weight: 600;
+}
+.purchase-status-card p {
+  font-size: 80px;
+  margin-top: 50px;
 }

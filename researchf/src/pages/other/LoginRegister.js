@@ -39,7 +39,7 @@ const LoginRegister = () => {
     e.preventDefault();
     try{
       const response = await axios.post(apiUrl+'/register',formData);
-      console.log(response.data);
+      //console.log(response.data);
       if(response.data==1) {
         alert("이미 가입된 이메일입니다.");
       } else if(response.data==2) {

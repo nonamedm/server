@@ -166,6 +166,23 @@ app.post('/myProjectList', function(request, response){
   });
 })
 
+app.post('/myProjectListCnt', function(request, response){
+  var userId = request.body.userId;
+
+  var sql = `SELECT COUNT(CASE WHEN APPROVAL_STATUS=0 THEN 1 END) AS CNT0,
+                    COUNT(CASE WHEN APPROVAL_STATUS=1 THEN 1 END) AS CNT1,
+                    COUNT(CASE WHEN APPROVAL_STATUS=2 THEN 1 END) AS CNT2,
+                    COUNT(CASE WHEN APPROVAL_STATUS=3 THEN 1 END) AS CNT3
+              FROM PROJECT_REQUEST
+              WHERE REQ_USER_ID= ?;`;
+  
+  connection.query(sql, userId,function (err, result) {
+    if(err) console.log(err);
+    //console.log(result);
+    response.send(result);
+  });
+})
+
 app.get('*',function(request,response){
   response.sendFile(path.join(__dirname,'/build/index.html'));
 })

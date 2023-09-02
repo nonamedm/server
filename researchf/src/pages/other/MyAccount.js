@@ -1,16 +1,25 @@
-import { Fragment, useState } from "react"; 
+import axios from "axios";
+import { Fragment, useEffect, useState } from "react"; 
 import { useLocation } from "react-router-dom";
 import SEO from "../../components/seo";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import MyProject from "../../components/other/MyProject";
+import Purchase from "../../components/other/Purchase";
 import MyAccountMenu from "../../components/other/MyAccountMenu";
 import ProjectModalSet from "../../components/other/ProjectModalSet";
 
 const MyAccount = () => {
+  // var apiUrl = "http://localhost:8001"; //개발서버용
+  var apiUrl = ""; //운영서버용
+
   let { pathname } = useLocation();
   let [projectModal, setProjectModal] = useState(false);
   let [modalIndex, setModalIndex] = useState(0);
+  let [myProjectData,setMyProjectData] = useState([]);
+  let [myProjectList,setMyProjectList] = useState(9);
+  let [myAccountMenuName,setMyAccountMenuName] = useState("myProjects");
+
   const closeModal = function () {
     setProjectModal(false);
   }
@@ -28,6 +37,21 @@ const MyAccount = () => {
     }
   }
 
+  let sessionStorage = window.sessionStorage;
+  var loginId = sessionStorage.getItem("loginId");
+
+  useEffect(() => {
+    axios.post(apiUrl+'/myProjectList',{
+        userId: loginId
+      }).then(function (response) {
+        //console.log(response.data);
+        setMyProjectData(response.data);
+      }).catch(function(error) {
+      
+      }).then(function () {
+        //finally
+      });
+  }, []);
   return (
     <Fragment>
       <SEO
@@ -47,10 +71,28 @@ const MyAccount = () => {
           <div className="container">
             <div className="custom-row-2">
               <div className="col-12 col-lg-3 col-md-4">
-                <MyAccountMenu></MyAccountMenu>
+                <MyAccountMenu
+                  myProjectData={myProjectData}
+                  setMyProjectList={setMyProjectList}
+                  setMyAccountMenuName={setMyAccountMenuName}
+                >
+
+                </MyAccountMenu>
               </div>
               <div className="col-12 col-lg-9 col-md-8">
-                <MyProject openModal={openModal}></MyProject>
+                {
+                  myAccountMenuName=="myProjects"?
+                  <MyProject openModal={openModal} myProjectData={myProjectData} myProjectList={myProjectList}></MyProject>
+                  :
+                  null
+                }
+                {
+                  myAccountMenuName=="purchase"?
+                  <Purchase openModal={openModal} myProjectData={myProjectData} myProjectList={myProjectList}></Purchase>
+                  :
+                  null
+                }
+                
               </div>
             </div>
           </div>

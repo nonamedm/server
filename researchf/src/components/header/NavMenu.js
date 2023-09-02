@@ -243,7 +243,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
               {"의뢰"}
             </Link>
           </li>
-          <li>
+          {/**<li>
             <Link to={process.env.PUBLIC_URL + "/"}>
               {t("pages")}
               {sidebarMenu ? (
@@ -301,7 +301,7 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
                 </Link>
               </li>
             </ul>
-          </li>
+              </li>*/}
           {/*<li>
             <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
               {t("blog")}
@@ -336,11 +336,12 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
               </li>
             </ul>
           </li>*/}
+          {/**
           <li>
             <Link to={process.env.PUBLIC_URL + "/contact"}>
               {t("contact_us")}
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </div>
