@@ -9,7 +9,7 @@ import {FacebookShareButton,
   LineIcon} from "react-share";
 
 function ShareProductModal({ show, onHide, productUrl, productName }) {
-  const currentUrl = "http://localhost:3000"+productUrl;
+  const currentUrl = "http://researchf.cafe24app.com/"+productUrl;
   // console.log(currentUrl);
   
   return (

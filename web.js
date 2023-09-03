@@ -16,6 +16,7 @@ const connection = mysql.createConnection({
   user: 'nonamedm17',
   password: 'gnlvldxmfl123!',
   database: 'nonamedm17',
+  multipleStatements: true
 });
 
 connection.connect((err) => {
@@ -165,6 +166,33 @@ app.post('/myProjectList', function(request, response){
     response.send(result);
   });
 })
+app.post('/myServiceList', function(request, response){
+  var userId = request.body.userId;
+
+  var sql = `SELECT IDX,
+                    ID, 
+                    SKU, 
+                    NAME, 
+                    PRICE,
+                    DISCOUNT, 
+                    OFFER_END, 
+                    RATING, 
+                    SALE_COUNT, 
+                    SELLER_ID, 
+                    REGIST_DT, 
+                    UPDATE_DT, 
+                    DELETE_YN, 
+                    FULL_DESCRIPTION, 
+                    SHORT_DESCRIPTION
+                FROM PRODUCTS WHERE SELLER_ID=?`;
+  
+  connection.query(sql, userId,function (err, result) {
+    if(err) console.log(err);
+    //console.log(result);
+
+    response.send(result);
+  });
+})
 
 app.post('/myProjectListCnt', function(request, response){
   var userId = request.body.userId;
@@ -179,6 +207,18 @@ app.post('/myProjectListCnt', function(request, response){
   connection.query(sql, userId,function (err, result) {
     if(err) console.log(err);
     //console.log(result);
+    response.send(result);
+  });
+})
+app.post('/myUserType', function(request, response){
+  var userId = request.body.userId;
+
+  var sql = `SELECT TYPE
+              FROM USER_INFO
+              WHERE USER_ID= ?;`;
+  
+  connection.query(sql, userId,function (err, result) {
+    if(err) console.log(err);
     response.send(result);
   });
 })
@@ -226,6 +266,130 @@ app.post('/projectRequest', function(request, response){
     }
     console.log("결과",msg);
   });
+})
+
+app.post('/serviceInsert', function(request, response){
+  //console.log(request.body);
+  // console.log(data.stay_yn);
+  var msg = "";
+  var userId = request.body.userId;
+  var data = request.body.data;
+  console.log("넘어와",data);
+  // const {id,sku,name,price,
+  //   discount,offer_end, rating, 
+  //   sale_count, seller_id, regist_dt,
+  //   update_dt, delete_yn, full_description, short_description } = inputs;
+
+  //const id = data.id;
+  const id = "4";
+  const sku = data.sku;
+  const name = data.name;
+  const price = data.price;
+  // const discount = data.discount;
+  const discount = "0";
+  // const offer_end = data.offer_end;
+  const offer_end = "2023-12-31 23:59:59";
+  // const rating = data.rating;
+  const rating = "5";
+  // const sale_count = data.sale_count;
+  const sale_count = "0";
+  const seller_id = userId;
+  const full_description = data.full_description;
+  const short_description = data.short_description;
+
+  var insertValArr = [id, sku, name, price, discount, offer_end, rating, sale_count, seller_id, full_description, short_description];
+  var sql = "";
+  sql = "INSERT INTO PRODUCTS (ID, SKU, NAME, PRICE, DISCOUNT, OFFER_END, RATING, SALE_COUNT, SELLER_ID, REGIST_DT, UPDATE_DT, DELETE_YN, FULL_DESCRIPTION, SHORT_DESCRIPTION)";
+  sql +="VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, now(), now(), 'N', ?, ?);";
+  connection.query(sql, insertValArr, function(err, result){
+    console.log(sql);
+    if(err) {
+      console.log(err);
+      msg=0;
+    } else {
+      var sql1 = `INSERT INTO PRODUCTS_CATEGORY
+      (CATEGORY_NAME, CATEGORY_CODE, PRODUCT_ID, REGIST_DT, UPDATE_DT, DELETE_YN)
+      VALUES('SERVICE A',00, '4', now(), now(), 'N'); `
+      
+      
+      var sql2 = ` INSERT INTO PRODUCTS_IMAGE
+      (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
+      VALUES('4', '3', '/assets/img/product/accessories/3.jpg', 'jpg', '1', now(), now(), 'N'); `
+
+      var sql3 = ` INSERT INTO PRODUCTS_IMAGE
+      (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
+      VALUES('4', '2', '/assets/img/product/accessories/1.jpg', 'jpg', '1', now(), now(), 'N'); `
+
+      var sql4 = ` INSERT INTO PRODUCTS_IMAGE
+      (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
+      VALUES('4', '2', '/assets/img/product/accessories/1.jpg', 'jpg', '1', now(), now(), 'N'); `
+      connection.query(sql1+sql2+sql3+sql4, function (err, result, field) {
+        if(err) {
+          console.log(err);
+          msg=0;
+        } else {
+          msg=1;
+        }
+
+      });
+      
+      response.send(msg);
+    }
+  });
+})
+
+app.post('/allProducts', function(request, response){
+
+  var sql1 = `SELECT id, sku, name, price, discount, 
+                     DATE_FORMAT(offer_end,'%Y-%m-%d %H:%i:%s') as offerEnd,
+                     rating, sale_count as saleCount, seller_id as sellerId, 
+                     DATE_FORMAT(regist_dt,'%Y-%m-%d %H:%i:%s') as registDt,
+                     DATE_FORMAT(update_dt,'%Y-%m-%d %H:%i:%s') as updateDt, delete_yn as deleteYn 
+                FROM PRODUCTS;   `;
+  var sql2 = `SELECT * FROM PRODUCTS_CATEGORY; `;
+  var sql3 = `SELECT * FROM PRODUCTS_IMAGE; `;
+  var sql4 = `SELECT * FROM PRODUCTS_VARIATION; `;
+  var sql5 = `SELECT * FROM PRODUCTS_TAG; `;
+  var products = [];
+  connection.query(sql1+sql2+sql3+sql4+sql5, function (err, result, field) {
+    if(err) console.log(err);
+
+    products=result[0];
+    //var products_image_temp= [];
+    result[0].map((a,i)=>{
+      const products_category = [];
+      const image_category = [];
+      const products_category_temp = result[1].filter((e)=>{
+        //console.log(result[0][i].ID);
+        if(e.PRODUCT_ID==result[0][i].id) {
+          return true;
+        }
+      });
+      const products_image_temp = result[2].filter((e)=>{
+        //console.log(result[0][i].ID);
+        if(e.PRODUCT_ID==result[0][i].id) {
+          return true;
+        }
+      });
+      products_category_temp.map((a,i)=>{
+        //console.log(products_category_temp[i].CATEGORY_NAME)
+        products_category.push(products_category_temp[i].CATEGORY_NAME);
+      })
+      products_image_temp.map((a,i)=>{
+        //console.log(products_category_temp[i].CATEGORY_NAME)
+        image_category.push(products_image_temp[i].IMAGE_PATH);
+      })
+      result[0][i].category=products_category;
+      result[0][i].image=image_category;
+      result[0][i].stock=10;
+      result[0][i].tag=['research','illustrator','freelancer'];
+    })
+
+    response.send(result[0]);
+  });
+  
+
+
 })
 
 app.get('*',function(request,response){

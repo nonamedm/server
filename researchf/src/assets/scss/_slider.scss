@@ -1,9 +1,9 @@
 /*----- 3. Slider style  ------*/
 
 .slider-height-1 {
-  height: 750px;
+  height: 550px;
   @media #{$xl-layout} {
-    height: 650px;
+    height: 550px;
   }
   @media #{$lg-layout} {
     height: 520px;

@@ -6,6 +6,8 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import MyProject from "../../components/other/MyProject";
 import Purchase from "../../components/other/Purchase";
+import Suggestion from "../../components/other/Suggestion";
+import MyService from "../../components/other/MyService";
 import MyAccountMenu from "../../components/other/MyAccountMenu";
 import ProjectModalSet from "../../components/other/ProjectModalSet";
 
@@ -17,9 +19,10 @@ const MyAccount = () => {
   let [projectModal, setProjectModal] = useState(false);
   let [modalIndex, setModalIndex] = useState(0);
   let [myProjectData,setMyProjectData] = useState([]);
+  let [myServiceData,setMyServiceData] = useState([]);
   let [myProjectList,setMyProjectList] = useState(9);
-  let [myAccountMenuName,setMyAccountMenuName] = useState("myProjects");
-
+  let [myAccountMenuName,setMyAccountMenuName] = useState("");
+  let [userType,setUserType] = useState(0);
   const closeModal = function () {
     setProjectModal(false);
   }
@@ -41,17 +44,43 @@ const MyAccount = () => {
   var loginId = sessionStorage.getItem("loginId");
 
   useEffect(() => {
-    axios.post(apiUrl+'/myProjectList',{
-        userId: loginId
-      }).then(function (response) {
-        //console.log(response.data);
-        setMyProjectData(response.data);
+    axios.post(apiUrl+'/myUserType',{
+      userId: loginId
+    }).then(function (response) {
+      //console.log("유저타입확인",response.data[0].TYPE);
+      setUserType(response.data[0].TYPE);
+      if(response.data[0].TYPE==1) {
+        setMyAccountMenuName("myProjects");
+        axios.post(apiUrl+'/myProjectList',{
+          userId: loginId
+        }).then(function (response) {
+          //console.log(response.data);
+          setMyProjectData(response.data);
+        }).catch(function(error) {
+        
+        }).then(function () {
+          //finally
+        });
+      } else {
+        setMyAccountMenuName("suggestionList");
+        axios.post(apiUrl+'/myServiceList',{
+          userId: loginId
+        }).then(function (response) {
+          setMyServiceData(response.data);
+        }).catch(function(error) {
+        
+        }).then(function () {
+          //finally
+        });
+      }
       }).catch(function(error) {
       
       }).then(function () {
         //finally
       });
+    
   }, []);
+
   return (
     <Fragment>
       <SEO
@@ -89,6 +118,18 @@ const MyAccount = () => {
                 {
                   myAccountMenuName=="purchase"?
                   <Purchase openModal={openModal} myProjectData={myProjectData} myProjectList={myProjectList}></Purchase>
+                  :
+                  null
+                }
+                {
+                  myAccountMenuName=="suggestionList"?
+                  <Suggestion></Suggestion>
+                  :
+                  null
+                }
+                {
+                  myAccountMenuName=="myServices"?
+                  <MyService myServiceData={myServiceData} ></MyService>
                   :
                   null
                 }

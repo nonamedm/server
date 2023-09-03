@@ -1,5 +1,5 @@
 const MyProjectCard = (props) => {
-  console.log(props.data);
+  //console.log(props.data);
   return (
     <div className="my-project-card">
       <img src="" />

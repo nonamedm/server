@@ -8,6 +8,7 @@ const MyAccountMenuDetail = (props) => {
   let sessionStorage = window.sessionStorage;
   let [myProjectData,setMyProjectData] = useState(props.myProjectData);
   let [myProjectCnt,setMyProjectCnt] = useState([{CNT0:0,CNT1:0,CNT2:0,CNT3:0}]);
+  let [userType,setUserType] = useState(0);
   var loginId = sessionStorage.getItem("loginId");
   const projectClick = (params,e)=>{
     props.setMyAccountMenuName("myProjects");
@@ -31,6 +32,16 @@ const MyAccountMenuDetail = (props) => {
         }).then(function () {
           //finally
         });
+      axios.post(apiUrl+'/myUserType',{
+        userId: loginId
+      }).then(function (response) {
+        //console.log("유저타입확인",response.data[0].TYPE);
+        setUserType(response.data[0].TYPE);
+        }).catch(function(error) {
+        
+        }).then(function () {
+          //finally
+        });
     } else {
       //console.log('로그인안됨');
     }
@@ -38,58 +49,112 @@ const MyAccountMenuDetail = (props) => {
 
   return (    
     <div>
-      <div className="single-my-account mb-20">
-        <div className="single-my-account mb-20">
-          <h2 className="panel-heading">                          
-            <p href="" onClick={(e)=>{myAccountMenuName("myProjects", e)}}>My Projects </p>                         
-          </h2>
-          <p className="panel-second" onClick={(e)=>{projectClick("9", e)}}>Overall ({props.myProjectData.length})</p>
-          <p className="panel-second" onClick={(e)=>{projectClick("0", e)}}>Waiting for approval ({myProjectCnt[0].CNT0})</p>
-          <p className="panel-second" onClick={(e)=>{projectClick("1", e)}}>Requesting ({myProjectCnt[0].CNT1})</p>
-          <p className="panel-second">Closing ({myProjectCnt[0].CNT2})</p>
-          <p className="panel-second">Not approved ({myProjectCnt[0].CNT3})</p>
-        </div>
-      </div>
+      {
+        userType==1 ? 
+        <div>
+          <div className="single-my-account mb-20">
+            <div className="single-my-account mb-20">
+              <h2 className="panel-heading">                          
+                <p href="" onClick={(e)=>{myAccountMenuName("myProjects", e)}}>My Projects </p>                         
+              </h2>
+              <p className="panel-second" onClick={(e)=>{projectClick("9", e)}}>Overall ({props.myProjectData.length})</p>
+              <p className="panel-second" onClick={(e)=>{projectClick("0", e)}}>Waiting for approval ({myProjectCnt[0].CNT0})</p>
+              <p className="panel-second" onClick={(e)=>{projectClick("1", e)}}>Requesting ({myProjectCnt[0].CNT1})</p>
+              <p className="panel-second">Closing ({myProjectCnt[0].CNT2})</p>
+              <p className="panel-second">Not approved ({myProjectCnt[0].CNT3})</p>
+            </div>
+          </div>
 
 
-      <div className="single-my-account mb-20">
-        <div className="single-my-account mb-20">
-          <h2 className="panel-heading">
-            <p href="" onClick={(e)=>{myAccountMenuName("purchase", e)}}>Purchase</p>
-          </h2>
-        </div>
-      </div>
+          <div className="single-my-account mb-20">
+            <div className="single-my-account mb-20">
+              <h2 className="panel-heading">
+                <p href="" onClick={(e)=>{myAccountMenuName("purchase", e)}}>Purchase</p>
+              </h2>
+            </div>
+          </div>
 
-      <div className="single-my-account mb-20">
-        <div className="single-my-account mb-20">
-          <h2 className="panel-heading">
-            <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Cash(준비중)</p>                            
-          </h2>
-        </div>
-      </div>
+          <div className="single-my-account mb-20">
+            <div className="single-my-account mb-20">
+              <h2 className="panel-heading">
+                <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Cash(준비중)</p>                            
+              </h2>
+            </div>
+          </div>
 
-      <div className="single-my-account mb-20">
-        <div className="single-my-account mb-20">
-          <h2 className="panel-heading">
-            <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Recharge Cash(준비중)</p>                            
-          </h2>
-        </div>
-      </div>
+          <div className="single-my-account mb-20">
+            <div className="single-my-account mb-20">
+              <h2 className="panel-heading">
+                <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Recharge Cash(준비중)</p>                            
+              </h2>
+            </div>
+          </div>
 
-      <div className="single-my-account mb-20">
-        <div className="single-my-account mb-20">
-          <h2 className="panel-heading">
-            <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Coupon(준비중)</p>                            
-          </h2>
+          <div className="single-my-account mb-20">
+            <div className="single-my-account mb-20">
+              <h2 className="panel-heading">
+                <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Coupon(준비중)</p>                            
+              </h2>
+            </div>
+          </div>
+          <div className="single-my-account mb-20">
+            <div className="single-my-account mb-20">
+              <h2 className="panel-heading">
+                <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Payment details(준비중)</p>                            
+              </h2>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="single-my-account mb-20">
-        <div className="single-my-account mb-20">
-          <h2 className="panel-heading">
-            <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Payment details(준비중)</p>                            
-          </h2>
+        : 
+        <div>
+          <div className="single-my-account mb-20">
+            <div className="single-my-account mb-20">
+              <h2 className="panel-heading">                          
+                <p href="" onClick={(e)=>{myAccountMenuName("suggestionList", e)}}>Suggestion List </p>                         
+              </h2>
+            </div>
+          </div>
+
+          <div className="single-my-account mb-20">
+            <div className="single-my-account mb-20">
+              <h2 className="panel-heading">
+                <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Sales(준비중)</p>                            
+              </h2>
+            </div>
+          </div>
+
+          <div className="single-my-account mb-20">
+            <div className="single-my-account mb-20">
+              <h2 className="panel-heading">
+                <p href="" onClick={(e)=>{myAccountMenuName("myServices", e)}}>My Services</p>
+              </h2>
+            </div>
+          </div>
+
+          <div className="single-my-account mb-20">
+            <div className="single-my-account mb-20">
+              <h2 className="panel-heading">
+                <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Portfolio(준비중)</p>                            
+              </h2>
+            </div>
+          </div>
+
+          <div className="single-my-account mb-20">
+            <div className="single-my-account mb-20">
+              <h2 className="panel-heading">
+                <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Profit Management(준비중)</p>                            
+              </h2>
+            </div>
+          </div>
+          <div className="single-my-account mb-20">
+            <div className="single-my-account mb-20">
+              <h2 className="panel-heading">
+                <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Expert Grade(준비중)</p>                            
+              </h2>
+            </div>
+          </div>
         </div>
-      </div>
+      }
     </div>
   );
 };

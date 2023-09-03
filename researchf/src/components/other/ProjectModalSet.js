@@ -64,14 +64,6 @@ const ProjectModalSet = (props) => {
         data: inputs
       });
       
-      // if(response.data==1) {
-      //   alert("이미 가입된 이메일입니다.");
-      // } else if(response.data==2) {
-      //   alert("오류가 발생했습니다. 관리자에게 문의하세요.");
-      // } else {
-      //   alert("회원가입이 완료되었습니다!");
-      //   window.location.reload();
-      // }
     } catch(error){
       console.error(error);
     }

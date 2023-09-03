@@ -254,7 +254,8 @@
   }
 }
 .panel-heading > p {
-  font-size: 20px;
+  font-size: 17px;
+  font-weight: 600;
   cursor: pointer;
 }
 .panel-second {
@@ -283,6 +284,31 @@
   display: flex;
   flex-direction: column;
 }
+.myproject-title h2{
+  font-weight: 600;;
+}
+.service-btn {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.service-btn button {
+  margin: 10px;
+  width: 100px;
+}
+.my-service-menu {
+  display: flex;
+}
+.my-service-menu-btn {
+  width: 120px;
+  height: 50px;
+  background-color: #7f7f7f;
+  border-radius: 7px;
+  margin: 0 2px 0 2px;
+  color: #fff;
+  border: none;
+}
 .prj-cont-empty {
   width: 70%;
   padding-left: 10%;
@@ -303,6 +329,61 @@
     height: 120px;
     margin: 0px 20px;
   }
+}
+.ck-balloon-panel {
+  display: none !important
+}
+.ck-editor__editable {
+  min-height: 300px;
+}
+.my-service-insert {
+  width: 100%;
+  height: 325px;
+  padding: 10px 0px;
+  border-top: 1px solid #c8c8c8;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-direction: column;
+  img {
+    width: 120px;
+    height: 120px;
+    margin: 0px 20px;
+  }
+  .input-row {
+    width: 100%;
+    display: flex;
+    padding: 15px;
+    thead, tbody, tfoot, tr, td, th {
+      border-style: none;
+    }
+  }
+  label {
+    width: 20%;
+    display: table;
+  }
+  h4 {
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: 600;
+  }
+  input {
+    background-color:#fff;
+  }
+  select {
+    border: 1px solid #c8c8c8;
+    width: 100%;
+    height: 40px;
+    color: #757575;
+    padding-left: 5px;
+  }
+}
+.service-insert-btn {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100px;
 }
 .myproject-form {
   padding: 10px;
@@ -515,6 +596,27 @@ input:checked ~ .checkmark:after {
   background-color: #404040;
   color: #eee;
 }
+.service-insert-prev {
+  position: absolute;
+  bottom: 1px;
+  width: 150px;
+  height: 50px;
+  margin: auto;
+  border: none;
+  background-color: #404040;
+  color: #ffffff;
+}
+.service-insert-next {
+  position: absolute;
+  bottom: 1px;
+  right: 0px;
+  width: 150px;
+  height: 50px;
+  margin: auto;
+  border: none;
+  background-color: #404040;
+  color: #eee;
+}
 .project-modal-select {
   border: 1px solid #c8c8c8;
   width: 200px;
@@ -554,6 +656,6 @@ input:checked ~ .checkmark:after {
   font-weight: 600;
 }
 .purchase-status-card p {
-  font-size: 80px;
+  font-size: 60px;
   margin-top: 50px;
 }
