@@ -21,7 +21,7 @@ const MyProject = (props) => {
       </div>
       <div className="my-projects mt-20">
         <div className="my-project-card">
-          <img src="" />
+          <img src="/assets/img/product/accessories/1.jpg" />
           <div className="prj-cont">
             <p>#1515 | 상위 카테고리 &#62; 하위 카테고리</p>
             <h3>제안 프로젝트1</h3>
@@ -30,7 +30,7 @@ const MyProject = (props) => {
           <button className="prj-sts-btn">대기중</button>       
         </div>        
         <div className="my-project-card">
-          <img src="" />
+          <img src="/assets/img/product/accessories/2.jpg" />
           <div className="prj-cont">
             <p>#1517 | 상위 카테고리 &#62; 하위 카테고리</p>
             <h3>제안 프로젝트2</h3>
@@ -39,7 +39,7 @@ const MyProject = (props) => {
           <button className="prj-sts-btn">승인</button>       
         </div>        
         <div className="my-project-card">
-          <img src="" />
+          <img src="/assets/img/product/accessories/3.jpg" />
           <div className="prj-cont">
             <p>#2023 | 상위 카테고리 &#62; 하위 카테고리</p>
             <h3>제안 프로젝트3</h3>

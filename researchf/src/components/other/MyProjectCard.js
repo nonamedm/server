@@ -2,7 +2,7 @@ const MyProjectCard = (props) => {
   //console.log(props.data);
   return (
     <div className="my-project-card">
-      <img src="" />
+      <img src="/assets/img/product/accessories/1.jpg" />
       <div className="prj-cont">
         <p>#{props.data.IDX} | {props.data.CATEGORY1} &#62; {props.data.CATEGORY2}</p>
         <h3>{props.data.POSITION_NM}</h3>

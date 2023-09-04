@@ -265,6 +265,7 @@ app.post('/projectRequest', function(request, response){
       msg = '1';
     }
     console.log("결과",msg);
+    response.send(msg);
   });
 })
 
@@ -274,7 +275,7 @@ app.post('/serviceInsert', function(request, response){
   var msg = "";
   var userId = request.body.userId;
   var data = request.body.data;
-  console.log("넘어와",data);
+  //console.log("넘어와",data);
   // const {id,sku,name,price,
   //   discount,offer_end, rating, 
   //   sale_count, seller_id, regist_dt,

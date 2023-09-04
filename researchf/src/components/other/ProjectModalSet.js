@@ -163,9 +163,9 @@ if(props.modalIndex==0) {
               <div className="project-modal-text">
                 <h4 className="project-modal-h4">개인/기업 여부를 선택해 주세요.</h4>
                 <div style={{display:"flex"}}>
-                  <input type="radio" name="personal_yn" onChange={onChange}/>
+                  <input type="radio" name="personal_yn" onChange={onChange} value="1"/>
                   <p style={{margin:"10px"}}>개인(프리랜서)</p>
-                  <input type="radio" name="corp_yn" onChange={onChange}/>
+                  <input type="radio" name="personal_yn" onChange={onChange} value="2"/>
                   <p style={{margin:"10px"}}>기업(법인/개인사업자/예비창업자)</p>
                 </div>
                 <input type="text" placeholder="개인/기업명 입력(*사이트에 노출되지 않음)" name="personal_nm" onChange={onChange} />
