@@ -62,7 +62,15 @@ const ProjectModalSet = (props) => {
       const response = await axios.post(apiUrl+'/projectRequest',{
         userId: userId,
         data: inputs
-      });
+      }).then(function (response) {
+        //console.log(response.data);
+        alert("등록완료");
+        window.location.href="/my-account";
+        }).catch(function(error) {
+        
+        }).then(function () {
+          //finally
+        });
       
     } catch(error){
       console.error(error);
