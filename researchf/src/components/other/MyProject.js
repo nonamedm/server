@@ -9,6 +9,9 @@ const MyProject = (props) => {
   const openModal = function () {
     props.openModal();
   }
+  const openEditModal = function (idx) {
+    props.openEditModal(idx);
+  }
   
   let myProjectData = props.myProjectData;
   return (
@@ -25,7 +28,7 @@ const MyProject = (props) => {
           myProjectData.map((a,i)=>{
             if(props.myProjectList==9) {
               return (
-                <MyProjectCard data={myProjectData[i]} i={i} key={i} >
+                <MyProjectCard openEditModal={openEditModal} data={myProjectData[i]} i={i} key={i} >
   
                 </MyProjectCard>
               )

@@ -269,6 +269,57 @@ app.post('/projectRequest', function(request, response){
   });
 })
 
+app.post('/projectEdit', function(request, response){
+  console.log(request.body);
+  var msg = "";
+  var userId = request.body.userId;
+  const IDX = request.body.idx;
+  const REQ_USER_ID = userId;
+  var selectValArr = [IDX,REQ_USER_ID];
+  var sql = "";
+  //STAY_YN
+  // , OUTSOURCING_YN
+  // , BUDGET
+  // , GOV_SUPPORT
+  // , CATEGORY1
+  // , CATEGORY2
+  // , POSITION_NM
+  // , PERSONAL_YN
+  // , CORP_YN
+  // , PERSONAL_NM
+  // , NOW_STATUS1
+  // , NOW_STATUS2
+  // , NOW_STATUS3
+  // , NOW_STATUS4
+  // , DETAIL_CONT
+  // , DETAIL_PRICE
+  // , DUE_DT
+  // , REGIST_DT
+  // , UPDATE_DT
+  // , DELETE_YN
+  // , REQ_USER_ID
+  // , APPROVAL_STATUS
+  sql = `SELECT *
+          FROM PROJECT_REQUEST`;
+  sql +=` WHERE 1=1
+            AND IDX=?
+            AND REQ_USER_ID=?`;
+  connection.query(sql, selectValArr, function(err, result){
+    console.log(sql);
+    if(err) {
+      console.log(err);
+      msg = '0';
+    } else {
+      msg = '1';
+      //console.log("결과물",result);
+    }
+    //console.log("결과",msg);
+    var returnMsg = {"msg":msg, "result": result};
+    response.send(returnMsg);
+    
+  });
+})
+
 app.post('/serviceInsert', function(request, response){
   //console.log(request.body);
   // console.log(data.stay_yn);

@@ -10,6 +10,7 @@ import Suggestion from "../../components/other/Suggestion";
 import MyService from "../../components/other/MyService";
 import MyAccountMenu from "../../components/other/MyAccountMenu";
 import ProjectModalSet from "../../components/other/ProjectModalSet";
+import ProjectEditModalSet from "../../components/other/ProjectEditModalSet";
 
 const MyAccount = () => {
   // var apiUrl = "http://localhost:8001"; //개발서버용
@@ -17,6 +18,8 @@ const MyAccount = () => {
 
   let { pathname } = useLocation();
   let [projectModal, setProjectModal] = useState(false);
+  let [projectEditModal, setProjectEditModal] = useState(false);
+  let [projectEditNum, setProjectEditNum] = useState();
   let [modalIndex, setModalIndex] = useState(0);
   let [myProjectData,setMyProjectData] = useState([]);
   let [myServiceData,setMyServiceData] = useState([]);
@@ -25,9 +28,16 @@ const MyAccount = () => {
   let [userType,setUserType] = useState(0);
   const closeModal = function () {
     setProjectModal(false);
+    setProjectEditModal(false);
+    setModalIndex(0);
   }
   const openModal = function () {
     setProjectModal(true);
+    setModalIndex(0);
+  }
+  const openEditModal = function (idx) {
+    setProjectEditModal(true);
+    setProjectEditNum(idx);
   }
   const modalNext = function () {
     if(modalIndex<4) {
@@ -111,7 +121,7 @@ const MyAccount = () => {
               <div className="col-12 col-lg-9 col-md-8">
                 {
                   myAccountMenuName=="myProjects"?
-                  <MyProject openModal={openModal} myProjectData={myProjectData} myProjectList={myProjectList}></MyProject>
+                  <MyProject openModal={openModal} openEditModal={openEditModal} myProjectData={myProjectData} myProjectList={myProjectList}></MyProject>
                   :
                   null
                 }
@@ -148,6 +158,21 @@ const MyAccount = () => {
             >
               {/**project Modal Set 에서 값 prop으로 받아와서 저장하기, 이후 my account 리셋 */}
             </ProjectModalSet>
+
+          :
+          null
+        }
+        {
+          projectEditModal ==true?
+            <ProjectEditModalSet 
+              closeModal={closeModal}
+              modalNext={modalNext}
+              modalPrev={modalPrev}
+              modalIndex={modalIndex}
+              projectEditNum={projectEditNum}
+            >
+              {/**project Modal Set 에서 값 prop으로 받아와서 저장하기, 이후 my account 리셋 */}
+            </ProjectEditModalSet>
 
           :
           null
