@@ -269,13 +269,89 @@ app.post('/projectRequest', function(request, response){
   });
 })
 
-app.post('/projectEdit', function(request, response){
+app.post('/editProjectRequest', function(request, response){
+
+  var msg = "";
+  var userId = request.body.userId;
+  var editIdx = request.body.editIdx;
+  var data = request.body.data;
+  const STAY_YN = data.stay_yn;
+  const OUTSOURCING_YN = data.outsourcing_yn;
+  const BUDGET = data.budget;
+  const GOV_SUPPORT = data.gov_support;
+  const CATEGORY1 = data.category1;
+  const CATEGORY2 = data.category2;
+  const POSITION_NM = data.position_nm;
+  const PERSONAL_YN = data.personal_yn;
+  const CORP_YN = data.corp_yn;
+  const PERSONAL_NM = data.personal_nm;
+  const NOW_STATUS1 = data.now_status1;
+  const NOW_STATUS2 = data.now_status2;
+  const NOW_STATUS3 = data.now_status3;
+  const NOW_STATUS4 = data.now_status4;
+  const DETAIL_CONT = data.detail_cont;
+  const DETAIL_PRICE = data.detail_price;
+  const DUE_DT = data.due_dt;
+  const REQ_USER_ID = userId;
+  const IDX = editIdx;
+  console.log("수정요청항목 : ",editIdx, ",", REQ_USER_ID);
+  var editValArr = [STAY_YN, OUTSOURCING_YN, BUDGET, GOV_SUPPORT, CATEGORY1, CATEGORY2, POSITION_NM, PERSONAL_YN, CORP_YN, PERSONAL_NM, NOW_STATUS1, NOW_STATUS2, NOW_STATUS3, NOW_STATUS4, DETAIL_CONT, DETAIL_PRICE, REQ_USER_ID, IDX];
+  var sql = "";
+  sql = `UPDATE nonamedm17.PROJECT_REQUEST
+        SET STAY_YN=?, OUTSOURCING_YN=?, BUDGET=?, GOV_SUPPORT=?, CATEGORY1=?, CATEGORY2=?, POSITION_NM=?, PERSONAL_YN=?, CORP_YN=?, PERSONAL_NM=?, NOW_STATUS1=?, NOW_STATUS2=?, NOW_STATUS3=?, NOW_STATUS4=?, DETAIL_CONT=?, DETAIL_PRICE=?, UPDATE_DT=now(), REQ_USER_ID=?, APPROVAL_STATUS=0
+        WHERE IDX=?;
+        `;
+  connection.query(sql, editValArr, function(err, result){
+    console.log(sql);
+    if(err) {
+      console.log(err);
+      msg = '0';
+    } else {
+      msg = '1';
+    }
+    console.log("결과",msg);
+    response.send(msg);
+  });
+})
+
+app.post('/editProject', function(request, response){
   console.log(request.body);
+
   var msg = "";
   var userId = request.body.userId;
   const IDX = request.body.idx;
   const REQ_USER_ID = userId;
   var selectValArr = [IDX,REQ_USER_ID];
+  var sql = "";
+
+  sql = `SELECT *
+          FROM PROJECT_REQUEST`;
+  sql +=` WHERE 1=1
+            AND IDX=?
+            AND REQ_USER_ID=?`;
+  connection.query(sql, selectValArr, function(err, result){
+    console.log(sql);
+    if(err) {
+      console.log(err);
+      msg = '0';
+    } else {
+      msg = '1';
+      //console.log("결과물",result);
+    }
+    //console.log("결과",msg);
+    var returnMsg = {"msg":msg, "result": result};
+    response.send(returnMsg);
+    
+  });
+})
+
+app.post('/deleteProject', function(request, response){
+  console.log(request.body);
+  var msg = "";
+  var userId = request.body.userId;
+  const IDX = request.body.idx;
+  const REQ_USER_ID = userId;
+  var deleteValArr = [IDX,REQ_USER_ID];
   var sql = "";
   //STAY_YN
   // , OUTSOURCING_YN
@@ -299,21 +375,20 @@ app.post('/projectEdit', function(request, response){
   // , DELETE_YN
   // , REQ_USER_ID
   // , APPROVAL_STATUS
-  sql = `SELECT *
-          FROM PROJECT_REQUEST`;
+  sql = `DELETE FROM PROJECT_REQUEST`;
   sql +=` WHERE 1=1
             AND IDX=?
             AND REQ_USER_ID=?`;
-  connection.query(sql, selectValArr, function(err, result){
+  connection.query(sql, deleteValArr, function(err, result){
     console.log(sql);
     if(err) {
       console.log(err);
       msg = '0';
     } else {
       msg = '1';
-      //console.log("결과물",result);
+      console.log("결과물",result);
     }
-    //console.log("결과",msg);
+    console.log("결과",msg);
     var returnMsg = {"msg":msg, "result": result};
     response.send(returnMsg);
     

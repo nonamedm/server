@@ -1,17 +1,33 @@
+import axios from "axios";
 import { useState } from "react";
 
 const MyProjectCard = (props) => {
+  // var apiUrl = "http://localhost:8001"; //개발서버용
+  var apiUrl = ""; //운영서버용
+
   let [editBoxModal, setEditBoxModal] = useState(false);
   
-  const openEditModal = function (idx) {
+  const editProject = function (idx) {
     props.openEditModal(idx);
     setEditBoxModal(false);
   }
-  const deleteProject = function () {
-    
-  }
-  const editProject = function () {
+  const deleteProject = function (idx) {
+    let sessionStorage = window.sessionStorage;
+    var loginId = sessionStorage.getItem("loginId");
 
+    axios.post(apiUrl+'/deleteProject',{
+      idx: idx,
+      userId: loginId
+    }).then(function (response) {
+      console.log(response);
+      alert("삭제완료");
+      window.location.href="/my-account";
+      
+    }).catch(function(error) {
+    
+    }).finally(function (e){
+      //console.log(e);
+    });
   }
   const onEditBoxModal = function () {
     editBoxModal==true?setEditBoxModal(false):setEditBoxModal(true);
@@ -40,8 +56,8 @@ const MyProjectCard = (props) => {
             {
               editBoxModal==true?
               <div className="edit-box">
-                <div onClick={() => openEditModal(props.data.IDX)}>편집</div>
-                <div >삭제</div>
+                <div onClick={() => editProject(props.data.IDX)}>편집</div>
+                <div onClick={() => deleteProject(props.data.IDX)}>삭제</div>
               </div>
               :
               null
