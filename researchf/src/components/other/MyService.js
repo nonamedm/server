@@ -33,12 +33,33 @@ const MyProject = (props) => {
     update_dt: "",
     delete_yn: "",
     full_description: "",
-    short_description: ""
+    short_description: "",
+    type_name1: "",
+    type_name2: "",
+    type_name3: "",
+    type_expln1: "",
+    type_expln2: "",
+    type_expln3: "",
+    type_price1: "",
+    type_price2: "",
+    type_price3: "",
+    type_lt1: "",
+    type_lt2: "",
+    type_lt3: "",
+    type_mod_num1: "",
+    type_mod_num2: "",
+    type_mod_num3: ""
   });
   const {id,sku,name,price,
     discount,offer_end, rating, 
     sale_count, seller_id, regist_dt,
-    update_dt, delete_yn, full_description, short_description } = inputs;
+    update_dt, delete_yn, full_description, short_description
+    ,type_name1,type_name2,type_name3,
+    type_expln1,type_expln2,type_expln3,
+    type_price1,type_price2,type_price3,
+    type_lt1,type_lt2,type_lt3,
+    type_mod_num1,type_mod_num2,type_mod_num3
+    } = inputs;
 
   const onChange = e => {
     const {name, value} = e.target;
@@ -102,6 +123,41 @@ const MyProject = (props) => {
       console.error(error);
     }
   }
+
+  const [showImages1,setShowImages1] = useState("");
+  const [fileImages1,setFileImages1] = useState("");
+  const [showImages2,setShowImages2] = useState([]);
+  const [fileImages2,setFileImages2] = useState([]);
+
+  // 이미지 상대경로 저장
+  const handleAddImages1 = (event) => {
+    const file = event.target.files[0];
+    const currentImageUrl = URL.createObjectURL(file);
+    setShowImages1(currentImageUrl);
+  };
+  const handleAddImages2 = (event) => {
+    const imageLists = event.target.files;
+    let imageUrlLists = [...showImages2];
+
+    for (let i = 0; i < imageLists.length; i++) {
+      const currentImageUrl = URL.createObjectURL(imageLists[i]);
+      imageUrlLists.push(currentImageUrl);
+    }
+
+    if (imageUrlLists.length > 10) {
+      imageUrlLists = imageUrlLists.slice(0, 10);
+    }
+
+    setShowImages2(imageUrlLists);
+  };
+
+  // X버튼 클릭 시 이미지 삭제
+  const handleDeleteImage1 = (id) => {
+    setShowImages1(showImages1.filter((_, index) => index !== id));
+  };
+  const handleDeleteImage2 = (id) => {
+    setShowImages2(showImages2.filter((_, index) => index !== id));
+  };
   
   let myServiceData = props.myServiceData;
   return (
@@ -157,6 +213,7 @@ const MyProject = (props) => {
             <button className="my-service-menu-btn" onClick={(e)=>{changeInsertService("1", e)}}>기본 정보</button>
             <button className="my-service-menu-btn" onClick={(e)=>{changeInsertService("2", e)}}>가격 설정</button>
             <button className="my-service-menu-btn" onClick={(e)=>{changeInsertService("3", e)}}>서비스 설명</button>
+            <button className="my-service-menu-btn" onClick={(e)=>{changeInsertService("4", e)}}>이미지</button>
             {/* <button className="my-service-menu-btn">이미지</button> */}
           </div>
           <div className="my-projects" style={{height:"375px"}}>
@@ -217,33 +274,33 @@ const MyProject = (props) => {
                       <tbody>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>제목 *</h4></td>
-                          <td><input type="text" name="sku" onChange={onChange} placeholder="프로젝트명을 입력하세요."/></td>
-                          <td><input type="text" placeholder="프로젝트명을 입력하세요."/></td>
-                          <td><input type="text" placeholder="프로젝트명을 입력하세요."/></td>
+                          <td><input type="text" name="type_name1" onChange={onChange} placeholder="프로젝트명을 입력하세요."/></td>
+                          <td><input type="text" name="type_name2" onChange={onChange} placeholder="프로젝트명을 입력하세요."/></td>
+                          <td><input type="text" name="type_name3" onChange={onChange} placeholder="프로젝트명을 입력하세요."/></td>
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>설명 *</h4></td>
-                          <td><input type="text" name="short_description" onChange={onChange} placeholder="설명을 입력하세요."/></td>
-                          <td><input type="text" placeholder="설명을 입력하세요."/></td>
-                          <td><input type="text" placeholder="설명을 입력하세요."/></td>
+                          <td><input type="text" name="type_expln1" onChange={onChange} placeholder="설명을 입력하세요."/></td>
+                          <td><input type="text" name="type_expln2" onChange={onChange} placeholder="설명을 입력하세요."/></td>
+                          <td><input type="text" name="type_expln3" onChange={onChange} placeholder="설명을 입력하세요."/></td>
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>금액<span style={{fontSize:"5px"}}>(VAT포함) </span>*</h4></td>
-                          <td><input type="text" name="price" value={inputValue1} onChange={numberCheck1} placeholder="입력해주세요."/></td>
-                          <td><input type="text" value={inputValue2} onChange={numberCheck2} placeholder="입력해주세요."/></td>
-                          <td><input type="text" value={inputValue3} onChange={numberCheck3} placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_price1" value={inputValue1} onChange={numberCheck1} placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_price2" value={inputValue2} onChange={numberCheck2} placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_price3" value={inputValue3} onChange={numberCheck3} placeholder="입력해주세요."/></td>
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>작업 기간 *</h4></td>
-                          <td><input type="text" placeholder="입력해주세요."/></td>
-                          <td><input type="text" placeholder="입력해주세요."/></td>
-                          <td><input type="text" placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_lt1" placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_lt2" placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_lt3" placeholder="입력해주세요."/></td>
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>수정 횟수 *</h4></td>
-                          <td><input type="text" placeholder="입력해주세요."/></td>
-                          <td><input type="text" placeholder="입력해주세요."/></td>
-                          <td><input type="text" placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_mod_num1" placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_mod_num2" placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_mod_num3" placeholder="입력해주세요."/></td>
                         </tr>
                       </tbody>
                     </table>
@@ -289,11 +346,59 @@ const MyProject = (props) => {
                 </div> 
                 <div className="service-insert-btn">
                   <button className="service-insert-prev" onClick={(e)=>{changeInsertService("2", e)}}>이전</button>
-                  <button className="service-insert-next" onClick={serviceInsertSubmit}>제출</button>
+                  <button className="service-insert-next" onClick={(e)=>{changeInsertService("4", e)}}>다음</button>
                 </div>   
               </div>
               : null
             }               
+            {
+              insertService==4?
+              <div>
+                <div className="my-service-insert">
+                  <div className="input-row">
+                    <label><h4>이미지 등록</h4></label>
+                    
+                  </div>
+                  <div className="my-service-image">
+                    <p>리스트 이미지(필수) 0 / 1</p>
+                    <div className="img-cont">
+                      <label htmlFor="input-img1" onChange={handleAddImages1}>
+                        이미지 추가
+                        <input className="input-img" type="file" accept="image/*" id="input-img1" style={{display:"none"}} />
+                      </label>
+
+                      {/** 저장해둔 이미지들을 화면에 이미지 출력 */} 
+                      <div className="">
+                        <img src={showImages1? showImages1: ''}  />
+                        {/* <Delete onClick={() => handleDeleteImage(id)} /> */}
+                      </div>
+                    </div>
+                  </div> 
+                  <div className="my-service-image">
+                    <p>상세페이지 이미지(필수) 0 / 10</p>
+                    <div className="img-cont">
+                      <label htmlFor="input-img2" onChange={handleAddImages2}>
+                        이미지 추가
+                        <input className="input-img" type="file" accept="image/*" id="input-img2" style={{display:"none"}} multiple/>
+                      </label>
+
+                      {/** 저장해둔 이미지들을 순회하면서 화면에 이미지 출력 */} 
+                      {showImages2.map((image, id) => (
+                        <div className="" key={id}>
+                          <img src={image} alt={`${image}-${id}`} />
+                          {/* <Delete onClick={() => handleDeleteImage(id)} /> */}
+                        </div>
+                      ))}
+                    </div>
+                  </div> 
+                </div> 
+                <div className="service-insert-btn">
+                  <button className="service-insert-prev" onClick={(e)=>{changeInsertService("3", e)}}>이전</button>
+                  <button className="service-insert-next" onClick={serviceInsertSubmit}>제출</button>
+                </div>   
+              </div>
+              : null
+            }
           </div>
         </div>
       :

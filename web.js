@@ -401,28 +401,34 @@ app.post('/serviceInsert', function(request, response){
   var msg = "";
   var userId = request.body.userId;
   var data = request.body.data;
-  //console.log("넘어와",data);
-  // const {id,sku,name,price,
-  //   discount,offer_end, rating, 
-  //   sale_count, seller_id, regist_dt,
-  //   update_dt, delete_yn, full_description, short_description } = inputs;
 
   //const id = data.id;
   const id = "4";
   const sku = data.sku;
   const name = data.name;
   const price = data.price;
-  // const discount = data.discount;
   const discount = "0";
-  // const offer_end = data.offer_end;
   const offer_end = "2023-12-31 23:59:59";
-  // const rating = data.rating;
-  const rating = "5";
-  // const sale_count = data.sale_count;
+  const rating = "0";
   const sale_count = "0";
   const seller_id = userId;
   const full_description = data.full_description;
   const short_description = data.short_description;
+  const type_name1 = data.type_name1;
+  const type_name2 = data.type_name2;
+  const type_name3 = data.type_name3;
+  const type_expln1 = data.type_expln1;
+  const type_expln2 = data.type_expln2;
+  const type_expln3 = data.type_expln3;
+  const type_price1 = data.type_price1;
+  const type_price2 = data.type_price2;
+  const type_price3 = data.type_price3;
+  const type_lt1 = data.type_lt1;
+  const type_lt2 = data.type_lt2;
+  const type_lt3 = data.type_lt3;
+  const type_mod_num1 = data.type_mod_num1;
+  const type_mod_num2 = data.type_mod_num2;
+  const type_mod_num3 = data.type_mod_num3;
 
   var insertValArr = [id, sku, name, price, discount, offer_end, rating, sale_count, seller_id, full_description, short_description];
   var sql = "";
