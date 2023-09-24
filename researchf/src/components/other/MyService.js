@@ -3,6 +3,7 @@ import MyServiceCard from "./MyServiceCard";
 import { useEffect, useState } from "react";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { uploadFile } from './FileAPI';
 
 const MyProject = (props) => {
   //바꿔야할것
@@ -19,6 +20,7 @@ const MyProject = (props) => {
   const [inputValue1, setInputValue1] = useState('');
   const [inputValue2, setInputValue2] = useState('');
   const [inputValue3, setInputValue3] = useState('');
+  const [submitImage, setSubmitImage] = useState([]);
   const [inputs,setInputs] = useState({
     id: "",
     sku: "",
@@ -105,6 +107,7 @@ const MyProject = (props) => {
     e.preventDefault();
     let sessionStorage = window.sessionStorage;
     var userId = sessionStorage.getItem("loginId");
+
     try{
       const response = await axios.post(apiUrl+'/serviceInsert',{
         userId: userId,
@@ -124,14 +127,24 @@ const MyProject = (props) => {
     }
   }
 
+  const [dataImg1, setDataImg1] = useState("");
   const [showImages1,setShowImages1] = useState("");
-  const [fileImages1,setFileImages1] = useState("");
+  const [file1,setFile1] = useState("");
+  const [dataImg2, setDataImg2] = useState([]);
   const [showImages2,setShowImages2] = useState([]);
-  const [fileImages2,setFileImages2] = useState([]);
+  const [file2,setFile2] = useState([]);
 
+  useEffect(()=>{
+    uploadFiles1();
+  },[file1]);
+  useEffect(()=>{
+    uploadFiles2();
+  },[file2]);
   // 이미지 상대경로 저장
   const handleAddImages1 = (event) => {
     const file = event.target.files[0];
+    setFile1(event.target.files[0]);
+    //console.log(event.target.files[0]);
     const currentImageUrl = URL.createObjectURL(file);
     setShowImages1(currentImageUrl);
   };
@@ -147,17 +160,51 @@ const MyProject = (props) => {
     if (imageUrlLists.length > 10) {
       imageUrlLists = imageUrlLists.slice(0, 10);
     }
-
+    setFile2(imageLists);
     setShowImages2(imageUrlLists);
   };
 
   // X버튼 클릭 시 이미지 삭제
   const handleDeleteImage1 = (id) => {
-    setShowImages1(showImages1.filter((_, index) => index !== id));
+    setShowImages1('');
   };
   const handleDeleteImage2 = (id) => {
     setShowImages2(showImages2.filter((_, index) => index !== id));
   };
+
+  const uploadFiles1 = async(e) => {
+    //e.preventDefault();
+    const formData = new FormData();
+    formData.append('file', file1);
+    try{
+      await uploadFile(formData).then(function (response) {
+        console.log("리턴",response);
+      }).finally(function (response) {
+
+      });;
+      
+    } catch(error){
+      console.error(error);
+    }
+  }
+  const uploadFiles2 = async(e) => {
+    //e.preventDefault();
+    //console.log(file2);
+    for(let i=0; i<file2.length; i++) {
+      const formData = new FormData();
+      formData.append('file', file2[i]);
+      try{
+        await uploadFile(formData).then(function (response) {
+          console.log("리턴",response);
+        }).finally(function (response) {
+  
+        });;;
+        
+      } catch(error){
+        console.error(error);
+      }
+    }
+  }
   
   let myServiceData = props.myServiceData;
   return (
@@ -360,7 +407,7 @@ const MyProject = (props) => {
                     
                   </div>
                   <div className="my-service-image">
-                    <p>리스트 이미지(필수) 0 / 1</p>
+                    <p>리스트 이미지(필수)</p>
                     <div className="img-cont">
                       <label htmlFor="input-img1" onChange={handleAddImages1}>
                         이미지 추가
@@ -369,13 +416,19 @@ const MyProject = (props) => {
 
                       {/** 저장해둔 이미지들을 화면에 이미지 출력 */} 
                       <div className="">
-                        <img src={showImages1? showImages1: ''}  />
+                        {showImages1? 
+                          <>
+                            <img src={showImages1} />
+                            <button className="btn-delete" onClick={handleDeleteImage1}>X</button>
+                          </>
+                          : null
+                        }
                         {/* <Delete onClick={() => handleDeleteImage(id)} /> */}
                       </div>
                     </div>
                   </div> 
                   <div className="my-service-image">
-                    <p>상세페이지 이미지(필수) 0 / 10</p>
+                    <p>상세페이지 이미지(필수)</p>
                     <div className="img-cont">
                       <label htmlFor="input-img2" onChange={handleAddImages2}>
                         이미지 추가
@@ -385,7 +438,10 @@ const MyProject = (props) => {
                       {/** 저장해둔 이미지들을 순회하면서 화면에 이미지 출력 */} 
                       {showImages2.map((image, id) => (
                         <div className="" key={id}>
+                          <>
                           <img src={image} alt={`${image}-${id}`} />
+                          <button className="btn-delete" onClick={(e)=>{handleDeleteImage2(id)}}>X</button>
+                          </>
                           {/* <Delete onClick={() => handleDeleteImage(id)} /> */}
                         </div>
                       ))}

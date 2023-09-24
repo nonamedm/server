@@ -1,4 +1,6 @@
 const express = require('express');
+const multer = require("multer");
+
 const mysql = require('mysql2');
 const path = require('path');
 const app = express();
@@ -524,6 +526,53 @@ app.post('/allProducts', function(request, response){
 
 
 })
+
+
+app.post('/uploadFiles', function(request, response){
+  
+  
+  const storage = multer.diskStorage({
+    destination: (request, file, callback) => {
+      callback(null, './file');	//업로드 파일의 저장 위치를 설정
+    },
+    filename: (request, file, callback) => {
+      const fileNamePlus = crypto.randomBytes(8).toString('hex'); // 랜덤값 생성->userId로 사용
+      const fileName = file.originalname;
+      const fileExt = fileName.split('.').pop();
+
+      callback(null, fileName.split('.'+fileExt)[0]+"_"+fileNamePlus+"."+fileExt);	// 파일이 저장될 때 이름 설정
+    },
+  });
+  
+  
+  const limits = {
+    files: 50,
+    fileSize: 1024 * 1024 * 1024, //1G
+  }
+  
+  const upload = multer({ storage, limits }).any();
+
+  const reqFiles = [];
+  upload(request, response, (err) => {
+    if (err) {
+      return response.json({ success: false, err });
+    }
+
+    for(let i = 0; i < request.files.length; i++) {
+      reqFiles.push(request.files[i].filename);
+    }
+    //console.log(request.files);
+    return response.json({
+      success: true,
+      //url: res.req.file.path,
+      fileName: reqFiles,
+      files: request.files
+    });
+  });
+
+  return;
+})
+
 
 app.get('*',function(request,response){
   response.sendFile(path.join(__dirname,'/build/index.html'));
