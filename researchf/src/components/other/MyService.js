@@ -20,7 +20,7 @@ const MyProject = (props) => {
   const [inputValue1, setInputValue1] = useState('');
   const [inputValue2, setInputValue2] = useState('');
   const [inputValue3, setInputValue3] = useState('');
-  const [submitImage, setSubmitImage] = useState([]);
+  const [imgData, setImgData] = useState([]);
   const [inputs,setInputs] = useState({
     id: "",
     sku: "",
@@ -111,7 +111,8 @@ const MyProject = (props) => {
     try{
       const response = await axios.post(apiUrl+'/serviceInsert',{
         userId: userId,
-        data: inputs
+        data: inputs,
+        imgData: imgData
       }).then(function (response) {
         //console.log(response.data);
         alert("등록완료");
@@ -127,10 +128,10 @@ const MyProject = (props) => {
     }
   }
 
-  const [dataImg1, setDataImg1] = useState("");
+  const [imgData1, setImgData1] = useState("");
   const [showImages1,setShowImages1] = useState("");
   const [file1,setFile1] = useState("");
-  const [dataImg2, setDataImg2] = useState([]);
+  const [imgData2, setImgData2] = useState([]);
   const [showImages2,setShowImages2] = useState([]);
   const [file2,setFile2] = useState([]);
 
