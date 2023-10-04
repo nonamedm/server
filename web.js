@@ -410,7 +410,8 @@ app.post('/serviceInsert', function(request, response){
   let id = "";
   const sku = data.sku;
   const name = data.name;
-  const price = data.price;
+  const price = Math.min(data.type_price1,data.type_price2,data.type_price3);
+  //var 최소값 = Math.min(변수1, 변수2, 변수3);
   const discount = "0";
   const offer_end = "2023-12-31 23:59:59";
   const rating = "0";
@@ -474,8 +475,12 @@ app.post('/serviceInsert', function(request, response){
         
         var sql2 = ` INSERT INTO PRODUCTS_IMAGE
         (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
-        VALUES(?, '3', '/assets/img/product/accessories/3.jpg', 'jpg', '1', now(), now(), 'N'); `
-        var sql2param = [id];
+        VALUES(?, ?, ?, ?, ?, now(), now(), 'N'); `
+        var imageName = request.body.imgData1.name;
+        var imagePath = request.body.imgData1.path.replace("researchf\\public","");
+        var imageExt = request.body.imgData1.ext;
+        var imageSize = request.body.imgData1.size;
+        var sql2param = [id,imageName,imagePath,imageExt,imageSize];
         var sql2s = mysql.format(sql2,sql2param)
   
         var sql3 = ` INSERT INTO PRODUCTS_IMAGE
@@ -489,7 +494,7 @@ app.post('/serviceInsert', function(request, response){
         VALUES(?, '2', '/assets/img/product/accessories/1.jpg', 'jpg', '1', now(), now(), 'N'); `
         var sql4param = [id];
         var sql4s = mysql.format(sql4,sql4param)
-        connection.query(sql1_1s+sql1_2s+sql2+sql3+sql4, function (err, result, field) {
+        connection.query(sql1_1s+sql1_2s+sql2s+sql3+sql4, function (err, result, field) {
           if(err) {
             console.log(err);
             msg=0;
@@ -511,6 +516,7 @@ app.post('/allProducts', function(request, response){
   var sql1 = `SELECT id, sku, name, price, discount, 
                      DATE_FORMAT(offer_end,'%Y-%m-%d %H:%i:%s') as offerEnd,
                      rating, sale_count as saleCount, seller_id as sellerId, 
+                     full_description as fullDescription,
                      DATE_FORMAT(regist_dt,'%Y-%m-%d %H:%i:%s') as registDt,
                      DATE_FORMAT(update_dt,'%Y-%m-%d %H:%i:%s') as updateDt, delete_yn as deleteYn 
                 FROM PRODUCTS;   `;
@@ -566,7 +572,9 @@ app.post('/uploadFiles', function(request, response){
   
   const storage = multer.diskStorage({
     destination: (request, file, callback) => {
-      callback(null, './file');	//업로드 파일의 저장 위치를 설정
+      //업로드 파일의 저장 위치를 설정
+      // callback(null, './file'); //개발 업로드 경로
+      callback(null, './researchf/public/assets/img/');	//운영 업로드 경로
     },
     filename: (request, file, callback) => {
       const fileNamePlus = crypto.randomBytes(8).toString('hex'); // 랜덤값 생성->userId로 사용

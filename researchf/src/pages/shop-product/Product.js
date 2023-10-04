@@ -13,7 +13,7 @@ const Product = () => {
   let { id } = useParams();
   const { products } = useSelector((state) => state.product);
   const product = products.find(product => product.id === id);
-  
+  console.log(product);
 
   return (
     <Fragment>

@@ -1,17 +1,26 @@
 import axios from "axios";
 import MyServiceCard from "./MyServiceCard";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import '@toast-ui/editor/dist/i18n/ko-kr';
 import { uploadFile } from './FileAPI';
 
 const MyProject = (props) => {
+  const editorRef = useRef();
   //바꿔야할것
   //1. variation 설정하기
-  //2. image 첨부하기
-  //3. product_id와 idx 구분하여 increment 하기
+  //2. image 첨부하기 -> 기본이미지는 완료, 추가이미지 필요
+  //3. product_id와 idx 구분하여 increment 하기 -> 완료
   //4. price 분기해서 기본price는 최소~최대값, variation은 각각 값 넣기(variation 값 외에 제목 등 다 분기하기)
-  //5. 카테고리도 분기하기
+  //5. 카테고리도 분기하기 -> 완료
   //6. 태그 넣을거야?
 
   // var apiUrl = "http://localhost:8001"; //개발서버용
@@ -21,7 +30,7 @@ const MyProject = (props) => {
   const [inputValue2, setInputValue2] = useState('');
   const [inputValue3, setInputValue3] = useState('');
   const [imgData, setImgData] = useState([]);
-  const [imgData1, setImgData1] = useState("");
+  const [imgData1, setImgData1] = useState();
   const [showImages1,setShowImages1] = useState("");
   const [file1,setFile1] = useState("");
   const [imgData2, setImgData2] = useState([]);
@@ -184,11 +193,14 @@ const MyProject = (props) => {
     formData.append('file', file1);
     try{
       await uploadFile(formData).then(function (response) {
-        console.log("리턴",response.fileName.length);
+        console.log("리턴",response);
         if(response.fileName.length>0){
           var fileName = response.fileName[0];
           var fileNameSplit = fileName.split(".");
-          console.log(fileNameSplit);
+          var filePath = response.files[0].path;
+          var size = response.files[0].size;
+          setImgData1({"name": fileNameSplit[0], "path": filePath, "ext": fileNameSplit[1], "size": size})
+          //console.log(fileNameSplit);
         }
       }).finally(function (response) {
 
@@ -214,6 +226,23 @@ const MyProject = (props) => {
       } catch(error){
         console.error(error);
       }
+    }
+  }
+
+  const onUploadImage = async(blob, callback) => {
+    const formData = new FormData();
+    formData.append('file', blob);
+    try{
+      await uploadFile(formData).then(function (response) {
+        console.log("리턴",response);
+        let url = '/assets/img/'+response.fileName[0];
+        callback(url, '사진 대체 텍스트 입력');
+      }).finally(function (response) {
+
+      });
+      
+    } catch(error){
+      console.error(error);
     }
   }
   
@@ -377,27 +406,24 @@ const MyProject = (props) => {
                 <div className="my-service-insert">
                   <div className="input-row">
                     <label><h4>서비스 설명</h4></label>
-                    <CKEditor
-                        editor={ ClassicEditor }
-                        data="<p>서비스 설명을 입력해주세요.</p>"
-                        onReady={ editor => {
-                            // You can store the "editor" and use when it is needed.
-                            //console.log( 'Editor is ready to use!', editor );
-                        } }
-                        onChange={ ( event, editor ) => {
-                            const data = editor.getData();
-                            //console.log( { event, editor, data } );
-                            console.log(data);
-                            setInputs({
-                              ...inputs,"full_description": data
-                            });
-                        } }
-                        onBlur={ ( event, editor ) => {
-                            //console.log( 'Blur.', editor );
-                        } }
-                        onFocus={ ( event, editor ) => {
-                            //console.log( 'Focus.', editor );
-                        } }
+                    <Editor
+                      initialValue="서비스 설명을 입력해주세요!"
+                      previewStyle="vertical"
+                      height="300px"
+                      initialEditType="wysiwyg"
+                      useCommandShortcut={false}
+                      plugins={[colorSyntax]}
+                      ref={editorRef}
+                      language="ko-KR"
+                      onChange={ () => {
+                        const data = editorRef.current.getInstance().getHTML();
+                        setInputs({
+                          ...inputs,"full_description": data
+                        });
+                      }}
+                      hooks={{
+                        addImageBlobHook: onUploadImage
+                      }}
                     />
                   </div>
 
