@@ -405,7 +405,9 @@ app.post('/serviceInsert', function(request, response){
   var data = request.body.data;
 
   //const id = data.id;
-  const id = "4";
+  //ID는 여기서 쿼리 날린 후 MAX처리 하자.
+  var maxSql = "SELECT MAX(IFNULL(ID,0))+1 as ID FROM PRODUCTS";
+  let id = "";
   const sku = data.sku;
   const name = data.name;
   const price = data.price;
@@ -416,6 +418,8 @@ app.post('/serviceInsert', function(request, response){
   const seller_id = userId;
   const full_description = data.full_description;
   const short_description = data.short_description;
+  const category_a = data.category_a;
+  const category_b = data.category_b;
   const type_name1 = data.type_name1;
   const type_name2 = data.type_name2;
   const type_name3 = data.type_name3;
@@ -431,46 +435,75 @@ app.post('/serviceInsert', function(request, response){
   const type_mod_num1 = data.type_mod_num1;
   const type_mod_num2 = data.type_mod_num2;
   const type_mod_num3 = data.type_mod_num3;
-
-  var insertValArr = [id, sku, name, price, discount, offer_end, rating, sale_count, seller_id, full_description, short_description];
-  var sql = "";
-  sql = "INSERT INTO PRODUCTS (ID, SKU, NAME, PRICE, DISCOUNT, OFFER_END, RATING, SALE_COUNT, SELLER_ID, REGIST_DT, UPDATE_DT, DELETE_YN, FULL_DESCRIPTION, SHORT_DESCRIPTION)";
-  sql +="VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, now(), now(), 'N', ?, ?);";
-  connection.query(sql, insertValArr, function(err, result){
-    console.log(sql);
+  
+  console.log(request.body);
+  var insertValArr = [];
+  connection.query(maxSql, insertValArr, function(err, result){
+    console.log(maxSql);
     if(err) {
       console.log(err);
       msg=0;
     } else {
-      var sql1 = `INSERT INTO PRODUCTS_CATEGORY
-      (CATEGORY_NAME, CATEGORY_CODE, PRODUCT_ID, REGIST_DT, UPDATE_DT, DELETE_YN)
-      VALUES('SERVICE A',00, '4', now(), now(), 'N'); `
-      
-      
-      var sql2 = ` INSERT INTO PRODUCTS_IMAGE
-      (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
-      VALUES('4', '3', '/assets/img/product/accessories/3.jpg', 'jpg', '1', now(), now(), 'N'); `
-
-      var sql3 = ` INSERT INTO PRODUCTS_IMAGE
-      (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
-      VALUES('4', '2', '/assets/img/product/accessories/1.jpg', 'jpg', '1', now(), now(), 'N'); `
-
-      var sql4 = ` INSERT INTO PRODUCTS_IMAGE
-      (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
-      VALUES('4', '2', '/assets/img/product/accessories/1.jpg', 'jpg', '1', now(), now(), 'N'); `
-      connection.query(sql1+sql2+sql3+sql4, function (err, result, field) {
-        if(err) {
-          console.log(err);
-          msg=0;
-        } else {
-          msg=1;
-        }
-
-      });
-      
-      response.send(msg);
+      //console.log(result[0].ID);
+      id = result[0].ID;
     }
+    insertValArr = [id, sku, name, price, discount, offer_end, rating, sale_count, seller_id, full_description, short_description];
+    var sql = "";
+    sql = "INSERT INTO PRODUCTS (ID, SKU, NAME, PRICE, DISCOUNT, OFFER_END, RATING, SALE_COUNT, SELLER_ID, REGIST_DT, UPDATE_DT, DELETE_YN, FULL_DESCRIPTION, SHORT_DESCRIPTION)";
+    sql +="VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, now(), now(), 'N', ?, ?);";
+    connection.query(sql, insertValArr, function(err, result){
+      console.log(sql);
+      if(err) {
+        console.log(err);
+        msg=0;
+      } else {
+
+        var sql1_1 = `INSERT INTO PRODUCTS_CATEGORY
+        (CATEGORY_NAME, CATEGORY_NUM, CATEGORY_CODE, PRODUCT_ID, REGIST_DT, UPDATE_DT, DELETE_YN)
+        VALUES(?, 'A', ?, ?, now(), now(), 'N'); `
+        var category_name_a = category_a =="00" ? "SERVICE A" : category_a=="01" ? "SERVICE B" : "SERVICE C"
+        var sql1_1param = [category_name_a, category_a, id];
+        var sql1_1s = mysql.format(sql1_1,sql1_1param)
+
+        var sql1_2 = `INSERT INTO PRODUCTS_CATEGORY
+        (CATEGORY_NAME, CATEGORY_NUM, CATEGORY_CODE, PRODUCT_ID, REGIST_DT, UPDATE_DT, DELETE_YN)
+        VALUES(?, 'B', ?, ?, now(), now(), 'N'); `
+        var category_name_b = category_b =="00" ? "SERVICE A" : category_a=="01" ? "SERVICE B" : "SERVICE C"
+        var sql1_2param = [category_name_b, category_b, id];
+        var sql1_2s = mysql.format(sql1_2,sql1_2param)
+        
+        var sql2 = ` INSERT INTO PRODUCTS_IMAGE
+        (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
+        VALUES(?, '3', '/assets/img/product/accessories/3.jpg', 'jpg', '1', now(), now(), 'N'); `
+        var sql2param = [id];
+        var sql2s = mysql.format(sql2,sql2param)
+  
+        var sql3 = ` INSERT INTO PRODUCTS_IMAGE
+        (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
+        VALUES(?, '2', '/assets/img/product/accessories/1.jpg', 'jpg', '1', now(), now(), 'N'); `
+        var sql3param = [id];
+        var sql3s = mysql.format(sql3,sql3param)
+  
+        var sql4 = ` INSERT INTO PRODUCTS_IMAGE
+        (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
+        VALUES(?, '2', '/assets/img/product/accessories/1.jpg', 'jpg', '1', now(), now(), 'N'); `
+        var sql4param = [id];
+        var sql4s = mysql.format(sql4,sql4param)
+        connection.query(sql1_1s+sql1_2s+sql2+sql3+sql4, function (err, result, field) {
+          if(err) {
+            console.log(err);
+            msg=0;
+          } else {
+            msg=1;
+          }
+  
+        });
+        
+        response.send(msg);
+      }
+    });
   });
+
 })
 
 app.post('/allProducts', function(request, response){

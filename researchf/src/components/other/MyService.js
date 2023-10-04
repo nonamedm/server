@@ -21,6 +21,12 @@ const MyProject = (props) => {
   const [inputValue2, setInputValue2] = useState('');
   const [inputValue3, setInputValue3] = useState('');
   const [imgData, setImgData] = useState([]);
+  const [imgData1, setImgData1] = useState("");
+  const [showImages1,setShowImages1] = useState("");
+  const [file1,setFile1] = useState("");
+  const [imgData2, setImgData2] = useState([]);
+  const [showImages2,setShowImages2] = useState([]);
+  const [file2,setFile2] = useState([]);
   const [inputs,setInputs] = useState({
     id: "",
     sku: "",
@@ -34,6 +40,8 @@ const MyProject = (props) => {
     regist_dt: "",
     update_dt: "",
     delete_yn: "",
+    category_a: "",
+    category_b: "",
     full_description: "",
     short_description: "",
     type_name1: "",
@@ -55,8 +63,10 @@ const MyProject = (props) => {
   const {id,sku,name,price,
     discount,offer_end, rating, 
     sale_count, seller_id, regist_dt,
-    update_dt, delete_yn, full_description, short_description
-    ,type_name1,type_name2,type_name3,
+    update_dt, delete_yn, 
+    category_a, category_b,
+    full_description, short_description,
+    type_name1,type_name2,type_name3,
     type_expln1,type_expln2,type_expln3,
     type_price1,type_price2,type_price3,
     type_lt1,type_lt2,type_lt3,
@@ -112,7 +122,8 @@ const MyProject = (props) => {
       const response = await axios.post(apiUrl+'/serviceInsert',{
         userId: userId,
         data: inputs,
-        imgData: imgData
+        imgData1: imgData1,
+        imgData2: imgData2
       }).then(function (response) {
         //console.log(response.data);
         alert("등록완료");
@@ -128,12 +139,6 @@ const MyProject = (props) => {
     }
   }
 
-  const [imgData1, setImgData1] = useState("");
-  const [showImages1,setShowImages1] = useState("");
-  const [file1,setFile1] = useState("");
-  const [imgData2, setImgData2] = useState([]);
-  const [showImages2,setShowImages2] = useState([]);
-  const [file2,setFile2] = useState([]);
 
   useEffect(()=>{
     uploadFiles1();
@@ -179,10 +184,15 @@ const MyProject = (props) => {
     formData.append('file', file1);
     try{
       await uploadFile(formData).then(function (response) {
-        console.log("리턴",response);
+        console.log("리턴",response.fileName.length);
+        if(response.fileName.length>0){
+          var fileName = response.fileName[0];
+          var fileNameSplit = fileName.split(".");
+          console.log(fileNameSplit);
+        }
       }).finally(function (response) {
 
-      });;
+      });
       
     } catch(error){
       console.error(error);
@@ -199,7 +209,7 @@ const MyProject = (props) => {
           console.log("리턴",response);
         }).finally(function (response) {
   
-        });;;
+        });
         
       } catch(error){
         console.error(error);
@@ -275,7 +285,7 @@ const MyProject = (props) => {
                   </div>
                   <div className="input-row">
                     <label><h4>카테고리</h4></label>
-                    <select className="" >
+                    <select className="" name="category_a" onChange={onChange}>
                       <option value="" >상위 카테고리</option>
                       <option value="00">Service A</option>
                       <option value="01">Service B</option>
@@ -284,7 +294,7 @@ const MyProject = (props) => {
                   </div>
                   <div className="input-row">
                     <label><h4></h4></label>
-                    <select className="" >
+                    <select className="" name="category_b" onChange={onChange}>
                       <option value="" >하위 카테고리</option>
                       <option value="00">Service A</option>
                       <option value="01">Service B</option>
