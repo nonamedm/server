@@ -16,13 +16,13 @@ function ProductModal({ product, currency, discountedPrice, finalProductPrice, f
   const { cartItems } = useSelector((state) => state.cart);
 
   const [selectedProductColor, setSelectedProductColor] = useState(
-    product.variation ? product.variation[0].color : ""
+    //product.variation ? product.variation[0].color : ""
   );
   const [selectedProductSize, setSelectedProductSize] = useState(
-    product.variation ? product.variation[0].size[0].name : ""
+    //product.variation ? product.variation[0].size[0].name : ""
   );
   const [productStock, setProductStock] = useState(
-    product.variation ? product.variation[0].size[0].stock : product.stock
+    //product.variation ? product.variation[0].size[0].stock : product.stock
   );
   const [quantityCount, setQuantityCount] = useState(1);
   const productCartQty = getProductCartQuantity(
@@ -155,9 +155,9 @@ function ProductModal({ product, currency, discountedPrice, finalProductPrice, f
                                 : ""
                             }
                             onChange={() => {
-                              setSelectedProductColor(single.color);
-                              setSelectedProductSize(single.size[0].name);
-                              setProductStock(single.size[0].stock);
+                              //setSelectedProductColor(single.color);
+                              //setSelectedProductSize(single.size[0].name);
+                              //setProductStock(single.size[0].stock);
                               setQuantityCount(1);
                             }}
                           />
@@ -172,7 +172,8 @@ function ProductModal({ product, currency, discountedPrice, finalProductPrice, f
                   <div className="pro-details-size-content">
                     {product.variation &&
                       product.variation.map(single => {
-                        return single.color === selectedProductColor
+                        return "";
+                        /*single.color === selectedProductColor
                           ? single.size.map((singleSize, key) => {
                               return (
                                 <label
@@ -202,7 +203,7 @@ function ProductModal({ product, currency, discountedPrice, finalProductPrice, f
                                 </label>
                               );
                             })
-                          : "";
+                          : */
                       })}
                   </div>
                 </div>

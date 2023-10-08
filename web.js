@@ -406,7 +406,7 @@ app.post('/serviceInsert', function(request, response){
 
   //const id = data.id;
   //ID는 여기서 쿼리 날린 후 MAX처리 하자.
-  var maxSql = "SELECT MAX(IFNULL(ID,0))+1 as ID FROM PRODUCTS";
+  var maxSql = "SELECT IFNULL(MAX(ID)+1,1) as ID FROM PRODUCTS";
   let id = "";
   const sku = data.sku;
   const name = data.name;
@@ -464,37 +464,66 @@ app.post('/serviceInsert', function(request, response){
         VALUES(?, 'A', ?, ?, now(), now(), 'N'); `
         var category_name_a = category_a =="00" ? "SERVICE A" : category_a=="01" ? "SERVICE B" : "SERVICE C"
         var sql1_1param = [category_name_a, category_a, id];
-        var sql1_1s = mysql.format(sql1_1,sql1_1param)
+        var sql1_1s = mysql.format(sql1_1,sql1_1param);
 
         var sql1_2 = `INSERT INTO PRODUCTS_CATEGORY
         (CATEGORY_NAME, CATEGORY_NUM, CATEGORY_CODE, PRODUCT_ID, REGIST_DT, UPDATE_DT, DELETE_YN)
         VALUES(?, 'B', ?, ?, now(), now(), 'N'); `
-        var category_name_b = category_b =="00" ? "SERVICE A" : category_a=="01" ? "SERVICE B" : "SERVICE C"
+        var category_name_b = category_b =="00" ? "SERVICE A" : category_b=="01" ? "SERVICE B" : "SERVICE C"
         var sql1_2param = [category_name_b, category_b, id];
-        var sql1_2s = mysql.format(sql1_2,sql1_2param)
+        var sql1_2s = mysql.format(sql1_2,sql1_2param);
         
         var sql2 = ` INSERT INTO PRODUCTS_IMAGE
-        (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
-        VALUES(?, ?, ?, ?, ?, now(), now(), 'N'); `
+        (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN, IMAGE_TYPE)
+        VALUES(?, ?, ?, ?, ?, now(), now(), 'N', '0'); `
         var imageName = request.body.imgData1.name;
         var imagePath = request.body.imgData1.path.replace("researchf\\public","");
         var imageExt = request.body.imgData1.ext;
         var imageSize = request.body.imgData1.size;
         var sql2param = [id,imageName,imagePath,imageExt,imageSize];
-        var sql2s = mysql.format(sql2,sql2param)
+        var sql2s = mysql.format(sql2,sql2param);
+
+        
+        for(let i = 0; i < request.body.imgData2.length; i++) {
+          // console.log("사이즈",[i]);
+          // console.log(request.body.imgData2[i]);
+          var sql2_1 = ` INSERT INTO PRODUCTS_IMAGE
+          (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN, IMAGE_TYPE)
+          VALUES(?, ?, ?, ?, ?, now(), now(), 'N', '1'); `
+          var imageName_1 = request.body.imgData2[i].name;
+          var imagePath_1 = request.body.imgData2[i].path.replace("researchf\\public","");
+          var imageExt_1 = request.body.imgData2[i].ext;
+          var imageSize_1 = request.body.imgData2[i].size;
+          var sql2param_1 = [id,imageName_1,imagePath_1,imageExt_1,imageSize_1];
+          var sql2s_1 = mysql.format(sql2_1,sql2param_1);
+          connection.query(sql2s_1, function (err, result, field) {
+            if(err) {
+              console.log(err);
+            } else {
+            }
+    
+          });
+        }
+
+        var sql3_1 = ` INSERT INTO nonamedm17.PRODUCTS_VARIATION
+        (PRODUCT_ID, TYPE_CODE, TYPE_NAME, TYPE_EXPLN, TYPE_PRICE, TYPE_LT, TYPE_MOD_NUM, REGIST_DT, UPDATE_DT, DELETE_YN)
+        VALUES(?, '', ?, ?, ?, ?, ?, now(), now(), 'N'); `
+        var sql3param_1 = [id,'0',type_name1,type_expln1,type_price1,type_lt1, type_mod_num1];
+        var sql3s_1 = mysql.format(sql3_1,sql3param_1);
+
+        var sql3_2 = ` INSERT INTO nonamedm17.PRODUCTS_VARIATION
+        (PRODUCT_ID, TYPE_CODE, TYPE_NAME, TYPE_EXPLN, TYPE_PRICE, TYPE_LT, TYPE_MOD_NUM, REGIST_DT, UPDATE_DT, DELETE_YN)
+        VALUES(?, '', ?, ?, ?, ?, ?, now(), now(), 'N'); `
+        var sql3param_2 = [id,'1',type_name2,type_expln2,type_price2,type_lt2, type_mod_num2];
+        var sql3s_2 = mysql.format(sql3_2,sql3param_2);
+
+        var sql3_3 = ` INSERT INTO nonamedm17.PRODUCTS_VARIATION
+        (PRODUCT_ID, TYPE_CODE, TYPE_NAME, TYPE_EXPLN, TYPE_PRICE, TYPE_LT, TYPE_MOD_NUM, REGIST_DT, UPDATE_DT, DELETE_YN)
+        VALUES(?, '', ?, ?, ?, ?, ?, now(), now(), 'N'); `
+        var sql3param_3 = [id,'2',type_name3,type_expln3,type_price3,type_lt3, type_mod_num3];
+        var sql3s_3 = mysql.format(sql3_3,sql3param_3);
   
-        var sql3 = ` INSERT INTO PRODUCTS_IMAGE
-        (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
-        VALUES(?, '2', '/assets/img/product/accessories/1.jpg', 'jpg', '1', now(), now(), 'N'); `
-        var sql3param = [id];
-        var sql3s = mysql.format(sql3,sql3param)
-  
-        var sql4 = ` INSERT INTO PRODUCTS_IMAGE
-        (PRODUCT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN)
-        VALUES(?, '2', '/assets/img/product/accessories/1.jpg', 'jpg', '1', now(), now(), 'N'); `
-        var sql4param = [id];
-        var sql4s = mysql.format(sql4,sql4param)
-        connection.query(sql1_1s+sql1_2s+sql2s+sql3+sql4, function (err, result, field) {
+        connection.query(sql1_1s+sql1_2s+sql2s+sql3s_1+sql3s_2+sql3s_3, function (err, result, field) {
           if(err) {
             console.log(err);
             msg=0;
@@ -521,7 +550,7 @@ app.post('/allProducts', function(request, response){
                      DATE_FORMAT(update_dt,'%Y-%m-%d %H:%i:%s') as updateDt, delete_yn as deleteYn 
                 FROM PRODUCTS;   `;
   var sql2 = `SELECT * FROM PRODUCTS_CATEGORY; `;
-  var sql3 = `SELECT * FROM PRODUCTS_IMAGE; `;
+  var sql3 = `SELECT * FROM PRODUCTS_IMAGE ORDER BY IMAGE_TYPE ASC; `;
   var sql4 = `SELECT * FROM PRODUCTS_VARIATION; `;
   var sql5 = `SELECT * FROM PRODUCTS_TAG; `;
   var products = [];
@@ -529,10 +558,13 @@ app.post('/allProducts', function(request, response){
     if(err) console.log(err);
 
     products=result[0];
+    //result[0] : PRODUCTS, result[1] : CATEGORY, result[2] : IMAGE, result[3] : VARIATION, result[4] : TAG
+
     //var products_image_temp= [];
     result[0].map((a,i)=>{
       const products_category = [];
-      const image_category = [];
+      const products_image = [];
+      const products_variation = [];
       const products_category_temp = result[1].filter((e)=>{
         //console.log(result[0][i].ID);
         if(e.PRODUCT_ID==result[0][i].id) {
@@ -545,16 +577,28 @@ app.post('/allProducts', function(request, response){
           return true;
         }
       });
+
+      const products_variation_temp = result[3].filter((e)=>{
+        //console.log(result[0][i].ID);
+        if(e.PRODUCT_ID==result[0][i].id) {
+          return true;
+        }
+      });
       products_category_temp.map((a,i)=>{
         //console.log(products_category_temp[i].CATEGORY_NAME)
         products_category.push(products_category_temp[i].CATEGORY_NAME);
       })
       products_image_temp.map((a,i)=>{
         //console.log(products_category_temp[i].CATEGORY_NAME)
-        image_category.push(products_image_temp[i].IMAGE_PATH);
+        products_image.push(products_image_temp[i].IMAGE_PATH);
+      })
+      products_variation_temp.map((a,i)=>{
+        //console.log(products_category_temp[i].CATEGORY_NAME)
+        products_variation.push(products_variation_temp[i]);
       })
       result[0][i].category=products_category;
-      result[0][i].image=image_category;
+      result[0][i].image=products_image;
+      result[0][i].variation=products_variation;
       result[0][i].stock=10;
       result[0][i].tag=['research','illustrator','freelancer'];
     })
@@ -577,8 +621,8 @@ app.post('/uploadFiles', function(request, response){
       callback(null, './researchf/public/assets/img/');	//운영 업로드 경로
     },
     filename: (request, file, callback) => {
-      const fileNamePlus = crypto.randomBytes(8).toString('hex'); // 랜덤값 생성->userId로 사용
-      const fileName = file.originalname;
+      const fileNamePlus = crypto.randomBytes(8).toString('hex'); // 랜덤값 생성
+      const fileName = file.originalname.replace(" ","_");
       const fileExt = fileName.split('.').pop();
 
       callback(null, fileName.split('.'+fileExt)[0]+"_"+fileNamePlus+"."+fileExt);	// 파일이 저장될 때 이름 설정

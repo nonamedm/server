@@ -4,6 +4,7 @@ import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 
 const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
+  console.log(product)
   return (
     <div className={clsx("description-review-area", spaceBottomClass)}>
       <div className="container">
@@ -23,7 +24,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
               </Nav.Item>
             </Nav>
             <Tab.Content className="description-review-bottom">
-              <Tab.Pane eventKey="additionalInfo">
+              {/*<Tab.Pane eventKey="additionalInfo">*/}
                 <div className="product-anotherinfo-wrapper">
                   <ul>
                     <li>
@@ -41,11 +42,11 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                     </li>
                   </ul>
                 </div>
-              </Tab.Pane>
-              <Tab.Pane eventKey="productDescription">
+              {/*</Tab.Pane>*/}
+              {/*<Tab.Pane eventKey="productDescription">*/}
                 <div dangerouslySetInnerHTML={{__html:productFullDesc}}></div>
-              </Tab.Pane>
-              <Tab.Pane eventKey="productReviews">
+              {/*</Tab.Pane>*/}
+              {/*<Tab.Pane eventKey="productReviews">*/}
                 <div className="row">
                   <div className="col-lg-7">
                     <div className="review-wrapper">
@@ -127,7 +128,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-5">
+                  {/* <div className="col-lg-5">
                     <div className="ratting-form-wrapper pl-50">
                       <h3>Add a Review</h3>
                       <div className="ratting-form">
@@ -167,9 +168,9 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                         </form>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
-              </Tab.Pane>
+              {/*</Tab.Pane>*/}
             </Tab.Content>
           </Tab.Container>
         </div>

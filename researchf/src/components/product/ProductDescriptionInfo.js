@@ -20,13 +20,13 @@ const ProductDescriptionInfo = ({
 }) => {
   const dispatch = useDispatch();
   const [selectedProductColor, setSelectedProductColor] = useState(
-    product.variation ? product.variation[0].color : ""
+    //product.variation ? product.variation[0].color : ""
   );
   const [selectedProductSize, setSelectedProductSize] = useState(
-    product.variation ? product.variation[0].size[0].name : ""
+    //product.variation ? product.variation[0].size[0].name : ""
   );
   const [productStock, setProductStock] = useState(
-    product.variation ? product.variation[0].size[0].stock : product.stock
+    //product.variation ? product.variation[0].size[0].stock : product.stock
   );
   const [quantityCount, setQuantityCount] = useState(1);
 
@@ -84,9 +84,9 @@ const ProductDescriptionInfo = ({
                         single.color === selectedProductColor ? "checked" : ""
                       }
                       onChange={() => {
-                        setSelectedProductColor(single.color);
-                        setSelectedProductSize(single.size[0].name);
-                        setProductStock(single.size[0].stock);
+                        //setSelectedProductColor(single.color);
+                        //setSelectedProductSize(single.size[0].name);
+                        //setProductStock(single.size[0].stock);
                         setQuantityCount(1);
                       }}
                     />
@@ -101,7 +101,8 @@ const ProductDescriptionInfo = ({
             <div className="pro-details-size-content">
               {product.variation &&
                 product.variation.map(single => {
-                  return single.color === selectedProductColor
+                  return "";
+                  /*single.color === selectedProductColor
                     ? single.size.map((singleSize, key) => {
                         return (
                           <label
@@ -126,7 +127,7 @@ const ProductDescriptionInfo = ({
                           </label>
                         );
                       })
-                    : "";
+                    : */
                 })}
             </div>
           </div>

@@ -193,7 +193,7 @@ const MyProject = (props) => {
     formData.append('file', file1);
     try{
       await uploadFile(formData).then(function (response) {
-        console.log("리턴",response);
+        //console.log("리턴",response);
         if(response.fileName.length>0){
           var fileName = response.fileName[0];
           var fileNameSplit = fileName.split(".");
@@ -219,6 +219,25 @@ const MyProject = (props) => {
       try{
         await uploadFile(formData).then(function (response) {
           console.log("리턴",response);
+
+          if(response.fileName.length>0){
+            var fileName = response.fileName[0];
+            var fileNameSplit = fileName.split(".");
+            var filePath = response.files[0].path;
+            var size = response.files[0].size;
+            
+            var copyData = imgData2;
+            copyData.push({"name": fileNameSplit[0], "path": filePath, "ext": fileNameSplit[1], "size": size});
+            setImgData2(copyData);
+            // if(i!=0) {
+            //   console.log("여기는2",i)
+            // } else {
+            //   console.log("여기는1",i)
+            //   var copyData = {"name": fileNameSplit[0], "path": filePath, "ext": fileNameSplit[1], "size": size};
+            //   setImgData2(copyData);
+            // }
+            //console.log(fileNameSplit);
+          }
         }).finally(function (response) {
   
         });
@@ -465,7 +484,7 @@ const MyProject = (props) => {
                     </div>
                   </div> 
                   <div className="my-service-image">
-                    <p>상세페이지 이미지(필수)</p>
+                    <p>상세페이지 이미지</p>
                     <div className="img-cont">
                       <label htmlFor="input-img2" onChange={handleAddImages2}>
                         이미지 추가
