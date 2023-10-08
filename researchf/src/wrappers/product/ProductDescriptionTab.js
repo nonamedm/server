@@ -4,7 +4,6 @@ import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 
 const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
-  console.log(product)
   return (
     <div className={clsx("description-review-area", spaceBottomClass)}>
       <div className="container">
