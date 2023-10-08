@@ -411,6 +411,7 @@ app.post('/serviceInsert', function(request, response){
   const sku = data.sku;
   const name = data.name;
   const price = Math.min(data.type_price1,data.type_price2,data.type_price3);
+  console.log(price);
   //var 최소값 = Math.min(변수1, 변수2, 변수3);
   const discount = "0";
   const offer_end = "2023-12-31 23:59:59";
@@ -507,20 +508,20 @@ app.post('/serviceInsert', function(request, response){
 
         var sql3_1 = ` INSERT INTO nonamedm17.PRODUCTS_VARIATION
         (PRODUCT_ID, TYPE_CODE, TYPE_NAME, TYPE_EXPLN, TYPE_PRICE, TYPE_LT, TYPE_MOD_NUM, REGIST_DT, UPDATE_DT, DELETE_YN)
-        VALUES(?, '', ?, ?, ?, ?, ?, now(), now(), 'N'); `
-        var sql3param_1 = [id,'0',type_name1,type_expln1,type_price1,type_lt1, type_mod_num1];
+        VALUES(?, '0', ?, ?, ?, ?, ?, now(), now(), 'N'); `
+        var sql3param_1 = [id,type_name1,type_expln1,type_price1,type_lt1, type_mod_num1];
         var sql3s_1 = mysql.format(sql3_1,sql3param_1);
 
         var sql3_2 = ` INSERT INTO nonamedm17.PRODUCTS_VARIATION
         (PRODUCT_ID, TYPE_CODE, TYPE_NAME, TYPE_EXPLN, TYPE_PRICE, TYPE_LT, TYPE_MOD_NUM, REGIST_DT, UPDATE_DT, DELETE_YN)
-        VALUES(?, '', ?, ?, ?, ?, ?, now(), now(), 'N'); `
-        var sql3param_2 = [id,'1',type_name2,type_expln2,type_price2,type_lt2, type_mod_num2];
+        VALUES(?, '1', ?, ?, ?, ?, ?, now(), now(), 'N'); `
+        var sql3param_2 = [id,type_name2,type_expln2,type_price2,type_lt2, type_mod_num2];
         var sql3s_2 = mysql.format(sql3_2,sql3param_2);
 
         var sql3_3 = ` INSERT INTO nonamedm17.PRODUCTS_VARIATION
         (PRODUCT_ID, TYPE_CODE, TYPE_NAME, TYPE_EXPLN, TYPE_PRICE, TYPE_LT, TYPE_MOD_NUM, REGIST_DT, UPDATE_DT, DELETE_YN)
-        VALUES(?, '', ?, ?, ?, ?, ?, now(), now(), 'N'); `
-        var sql3param_3 = [id,'2',type_name3,type_expln3,type_price3,type_lt3, type_mod_num3];
+        VALUES(?, '2', ?, ?, ?, ?, ?, now(), now(), 'N'); `
+        var sql3param_3 = [id,type_name3,type_expln3,type_price3,type_lt3, type_mod_num3];
         var sql3s_3 = mysql.format(sql3_3,sql3param_3);
   
         connection.query(sql1_1s+sql1_2s+sql2s+sql3s_1+sql3s_2+sql3s_3, function (err, result, field) {

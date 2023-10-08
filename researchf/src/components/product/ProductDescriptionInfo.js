@@ -8,6 +8,9 @@ import { addToCart } from "../../store/slices/cart-slice";
 import { addToWishlist } from "../../store/slices/wishlist-slice";
 import { addToCompare } from "../../store/slices/compare-slice";
 
+import Tab from "react-bootstrap/Tab";
+import Nav from "react-bootstrap/Nav";
+
 const ProductDescriptionInfo = ({
   product,
   discountedPrice,
@@ -40,7 +43,7 @@ const ProductDescriptionInfo = ({
   return (
     <div className="product-details-content ml-70">
       <h2>{product.name}</h2>
-      <div className="product-details-price">
+      {/*<div className="product-details-price">
         {discountedPrice !== null ? (
           <Fragment>
             <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
@@ -51,7 +54,7 @@ const ProductDescriptionInfo = ({
         ) : (
           <span>{currency.currencySymbol + finalProductPrice} </span>
         )}
-      </div>
+        </div>*/}
       {product.rating && product.rating > 0 ? (
         <div className="pro-details-rating-wrap">
           <div className="pro-details-rating">
@@ -62,79 +65,58 @@ const ProductDescriptionInfo = ({
         ""
       )}
       <div className="pro-details-list">
-        <p>{product.shortDescription}</p>
+      <Tab.Container defaultActiveKey="standard">
+        <Nav variant="pills" className="description-review-topbar">
+          <Nav.Item>
+            <Nav.Link eventKey="standard">
+            standard
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="deluxe">deluxe</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="premium">premium</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <Tab.Content className="description-review-bottom">
+          <Tab.Pane eventKey="standard">
+            <div className="">
+              <h2>{product.variation[0].TYPE_PRICE} <span>(VAT포함가)</span></h2>
+              <hr/>
+              <p>{product.variation[0].TYPE_NAME}</p>
+              <p>{product.variation[0].TYPE_EXPLN}</p>
+              <p>작업기간 {product.variation[0].TYPE_LT}</p>
+              <p>수정횟수 {product.variation[0].TYPE_MOD_NUM}</p>              
+            </div>
+          </Tab.Pane>
+          <Tab.Pane eventKey="deluxe">
+            <div className="">
+              <h2>{product.variation[1].TYPE_PRICE} <span>(VAT포함가)</span></h2>
+              <hr/>
+              <p>{product.variation[1].TYPE_NAME}</p>
+              <p>{product.variation[1].TYPE_EXPLN}</p>
+              <p>작업기간 {product.variation[1].TYPE_LT}</p>
+              <p>수정횟수 {product.variation[1].TYPE_MOD_NUM}</p>
+            </div>            
+          </Tab.Pane>
+          <Tab.Pane eventKey="premium">
+            <div className="">
+              <h2>{product.variation[2].TYPE_PRICE} <span>(VAT포함가)</span></h2>
+              <hr/>
+              <p>{product.variation[2].TYPE_NAME}</p>
+              <p>{product.variation[2].TYPE_EXPLN}</p>
+              <p>작업기간 {product.variation[2].TYPE_LT}</p>
+              <p>수정횟수 {product.variation[2].TYPE_MOD_NUM}</p>
+            </div>
+          </Tab.Pane>
+        </Tab.Content>
+      </Tab.Container>
+        
+        
+        
       </div>
 
-      {product.variation ? (
-        <div className="pro-details-size-color">
-          <div className="pro-details-color-wrap">
-            <span>Color</span>
-            <div className="pro-details-color-content">
-              {product.variation.map((single, key) => {
-                return (
-                  <label
-                    className={`pro-details-color-content--single ${single.color}`}
-                    key={key}
-                  >
-                    <input
-                      type="radio"
-                      value={single.color}
-                      name="product-color"
-                      checked={
-                        single.color === selectedProductColor ? "checked" : ""
-                      }
-                      onChange={() => {
-                        //setSelectedProductColor(single.color);
-                        //setSelectedProductSize(single.size[0].name);
-                        //setProductStock(single.size[0].stock);
-                        setQuantityCount(1);
-                      }}
-                    />
-                    <span className="checkmark"></span>
-                  </label>
-                );
-              })}
-            </div>
-          </div>
-          <div className="pro-details-size">
-            <span>Size</span>
-            <div className="pro-details-size-content">
-              {product.variation &&
-                product.variation.map(single => {
-                  return "";
-                  /*single.color === selectedProductColor
-                    ? single.size.map((singleSize, key) => {
-                        return (
-                          <label
-                            className={`pro-details-size-content--single`}
-                            key={key}
-                          >
-                            <input
-                              type="radio"
-                              value={singleSize.name}
-                              checked={
-                                singleSize.name === selectedProductSize
-                                  ? "checked"
-                                  : ""
-                              }
-                              onChange={() => {
-                                setSelectedProductSize(singleSize.name);
-                                setProductStock(singleSize.stock);
-                                setQuantityCount(1);
-                              }}
-                            />
-                            <span className="size-name">{singleSize.name}</span>
-                          </label>
-                        );
-                      })
-                    : */
-                })}
-            </div>
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
       {product.affiliateLink ? (
         <div className="pro-details-quality">
           <div className="pro-details-cart btn-hover ml-0">

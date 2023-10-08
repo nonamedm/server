@@ -180,9 +180,9 @@ export const getProductsIndividualSizes = products => {
       return (
         product.variation &&
         product.variation.map(single => {
-          return single.size.map(single => {
+          /*return single.size.map(single => {
             return productSizes.push(single.name);
-          });
+          });*/
         })
       );
     });

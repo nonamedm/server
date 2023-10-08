@@ -43,7 +43,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                 </div>
               {/*</Tab.Pane>*/}
               {/*<Tab.Pane eventKey="productDescription">*/}
-                <div dangerouslySetInnerHTML={{__html:productFullDesc}}></div>
+                <div className="full-description" dangerouslySetInnerHTML={{__html:productFullDesc}}></div>
               {/*</Tab.Pane>*/}
               {/*<Tab.Pane eventKey="productReviews">*/}
                 <div className="row">

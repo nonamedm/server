@@ -253,7 +253,7 @@ const MyProject = (props) => {
     formData.append('file', blob);
     try{
       await uploadFile(formData).then(function (response) {
-        console.log("리턴",response);
+        //console.log("리턴",response);
         let url = '/assets/img/'+response.fileName[0];
         callback(url, '사진 대체 텍스트 입력');
       }).finally(function (response) {
@@ -322,7 +322,7 @@ const MyProject = (props) => {
             <button className="my-service-menu-btn" onClick={(e)=>{changeInsertService("4", e)}}>이미지</button>
             {/* <button className="my-service-menu-btn">이미지</button> */}
           </div>
-          <div className="my-projects" style={{height:"375px"}}>
+          <div className="my-projects" style={{height:"100%"}}>
             {
               insertService==1?
               <div>
@@ -386,9 +386,9 @@ const MyProject = (props) => {
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>설명 *</h4></td>
-                          <td><input type="text" name="type_expln1" onChange={onChange} placeholder="설명을 입력하세요."/></td>
-                          <td><input type="text" name="type_expln2" onChange={onChange} placeholder="설명을 입력하세요."/></td>
-                          <td><input type="text" name="type_expln3" onChange={onChange} placeholder="설명을 입력하세요."/></td>
+                          <td><textarea name="type_expln1" onChange={onChange} placeholder="설명을 입력하세요."/></td>
+                          <td><textarea name="type_expln2" onChange={onChange} placeholder="설명을 입력하세요."/></td>
+                          <td><textarea name="type_expln3" onChange={onChange} placeholder="설명을 입력하세요."/></td>
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>금액<span style={{fontSize:"5px"}}>(VAT포함) </span>*</h4></td>
@@ -398,15 +398,15 @@ const MyProject = (props) => {
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>작업 기간 *</h4></td>
-                          <td><input type="text" name="type_lt1" placeholder="입력해주세요."/></td>
-                          <td><input type="text" name="type_lt2" placeholder="입력해주세요."/></td>
-                          <td><input type="text" name="type_lt3" placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_lt1" placeholder="입력해주세요." onChange={onChange}/></td>
+                          <td><input type="text" name="type_lt2" placeholder="입력해주세요." onChange={onChange}/></td>
+                          <td><input type="text" name="type_lt3" placeholder="입력해주세요." onChange={onChange}/></td>
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>수정 횟수 *</h4></td>
-                          <td><input type="text" name="type_mod_num1" placeholder="입력해주세요."/></td>
-                          <td><input type="text" name="type_mod_num2" placeholder="입력해주세요."/></td>
-                          <td><input type="text" name="type_mod_num3" placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_mod_num1" placeholder="입력해주세요." onChange={onChange}/></td>
+                          <td><input type="text" name="type_mod_num2" placeholder="입력해주세요." onChange={onChange}/></td>
+                          <td><input type="text" name="type_mod_num3" placeholder="입력해주세요." onChange={onChange}/></td>
                         </tr>
                       </tbody>
                     </table>

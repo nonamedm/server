@@ -16,7 +16,6 @@
       margin-right: 0;
     }
   }
-
   .large-img-style {
     position: relative;
     img {
@@ -99,6 +98,11 @@
       }
     }
   }
+}
+
+
+.full-description >p > img {
+  width:80%;
 }
 
 .description-review-topbar {
