@@ -2,7 +2,7 @@ const MyServiceCard = (props) => {
   //console.log(props.data);
   return (
     <div className="my-project-card">
-      <img src="/assets/img/product/accessories/3.jpg" />
+      <img src={props.data.IMAGE_PATH} />
       <div className="prj-cont">
         <p>#{props.data.IDX} | {props.data.CATEGORY}</p>
         <h3>{props.data.NAME}</h3>

@@ -171,22 +171,23 @@ app.post('/myProjectList', function(request, response){
 app.post('/myServiceList', function(request, response){
   var userId = request.body.userId;
 
-  var sql = `SELECT IDX,
-                    ID, 
-                    SKU, 
-                    NAME, 
-                    PRICE,
-                    DISCOUNT, 
-                    OFFER_END, 
-                    RATING, 
-                    SALE_COUNT, 
-                    SELLER_ID, 
-                    REGIST_DT, 
-                    UPDATE_DT, 
-                    DELETE_YN, 
-                    FULL_DESCRIPTION, 
-                    SHORT_DESCRIPTION
-                FROM PRODUCTS WHERE SELLER_ID=?`;
+  var sql = `SELECT A.IDX,
+                    A.ID, 
+                    A.SKU, 
+                    A.NAME, 
+                    A.PRICE,
+                    A.DISCOUNT, 
+                    A.OFFER_END, 
+                    A.RATING, 
+                    A.SALE_COUNT, 
+                    A.SELLER_ID, 
+                    A.REGIST_DT, 
+                    A.UPDATE_DT, 
+                    A.DELETE_YN, 
+                    A.FULL_DESCRIPTION, 
+                    A.SHORT_DESCRIPTION,
+                    B.IMAGE_PATH
+                FROM PRODUCTS A, PRODUCTS_IMAGE B WHERE A.ID = B.PRODUCT_ID AND A.SELLER_ID=? AND B.IMAGE_TYPE='0'`;
   
   connection.query(sql, userId,function (err, result) {
     if(err) console.log(err);
@@ -505,7 +506,7 @@ app.post('/serviceInsert', function(request, response){
     
           });
         }
-
+        
         var sql3_1 = ` INSERT INTO nonamedm17.PRODUCTS_VARIATION
         (PRODUCT_ID, TYPE_CODE, TYPE_NAME, TYPE_EXPLN, TYPE_PRICE, TYPE_LT, TYPE_MOD_NUM, REGIST_DT, UPDATE_DT, DELETE_YN)
         VALUES(?, '0', ?, ?, ?, ?, ?, now(), now(), 'N'); `

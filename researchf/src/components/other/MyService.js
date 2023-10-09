@@ -14,6 +14,7 @@ import '@toast-ui/editor/dist/i18n/ko-kr';
 import { uploadFile } from './FileAPI';
 
 const MyProject = (props) => {
+
   const editorRef = useRef();
   //바꿔야할것
   //1. variation 설정하기
@@ -266,6 +267,7 @@ const MyProject = (props) => {
   }
   
   let myServiceData = props.myServiceData;
+
   return (
     <div className="myproject-form">
       {
@@ -329,11 +331,11 @@ const MyProject = (props) => {
                 <div className="my-service-insert">
                   <div className="input-row">
                     <label><h4>제목</h4></label>
-                    <input type="text" name="name" onChange={onChange} placeholder="프로젝트명을 입력하세요."/>
+                    <input type="text" name="name" onChange={onChange} placeholder="프로젝트명을 입력하세요." value={inputs.name}/>
                   </div>
                   <div className="input-row">
                     <label><h4>카테고리</h4></label>
-                    <select className="" name="category_a" onChange={onChange}>
+                    <select className="" name="category_a" onChange={onChange} value={inputs.category_a}>
                       <option value="" >상위 카테고리</option>
                       <option value="00">Service A</option>
                       <option value="01">Service B</option>
@@ -342,7 +344,7 @@ const MyProject = (props) => {
                   </div>
                   <div className="input-row">
                     <label><h4></h4></label>
-                    <select className="" name="category_b" onChange={onChange}>
+                    <select className="" name="category_b" onChange={onChange} value={inputs.category_b}>
                       <option value="" >하위 카테고리</option>
                       <option value="00">Service A</option>
                       <option value="01">Service B</option>
@@ -378,35 +380,44 @@ const MyProject = (props) => {
                         </tr>
                       </thead>
                       <tbody>
+                        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet" /> 
+                        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+                        <script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>제목 *</h4></td>
-                          <td><input type="text" name="type_name1" onChange={onChange} placeholder="프로젝트명을 입력하세요."/></td>
-                          <td><input type="text" name="type_name2" onChange={onChange} placeholder="프로젝트명을 입력하세요."/></td>
-                          <td><input type="text" name="type_name3" onChange={onChange} placeholder="프로젝트명을 입력하세요."/></td>
+                          <td><input type="text" name="type_name1" onChange={onChange} placeholder="프로젝트명을 입력하세요." value={inputs.type_name1}/></td>
+                          <td><input type="text" name="type_name2" onChange={onChange} placeholder="프로젝트명을 입력하세요." value={inputs.type_name2}/></td>
+                          <td><input type="text" name="type_name3" onChange={onChange} placeholder="프로젝트명을 입력하세요." value={inputs.type_name3}/></td>
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>설명 *</h4></td>
-                          <td><textarea name="type_expln1" onChange={onChange} placeholder="설명을 입력하세요."/></td>
-                          <td><textarea name="type_expln2" onChange={onChange} placeholder="설명을 입력하세요."/></td>
-                          <td><textarea name="type_expln3" onChange={onChange} placeholder="설명을 입력하세요."/></td>
+                          <td>
+                            <textarea name="type_expln1" onChange={onChange} placeholder="설명을 입력하세요." value={inputs.type_expln1}/>
+                          </td>
+                          <td>
+                            <textarea name="type_expln2" onChange={onChange} placeholder="설명을 입력하세요." value={inputs.type_expln2}/>
+                          </td>
+                          <td>
+                            <textarea name="type_expln3" onChange={onChange} placeholder="설명을 입력하세요." value={inputs.type_expln3}/>
+                          </td>
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>금액<span style={{fontSize:"5px"}}>(VAT포함) </span>*</h4></td>
-                          <td><input type="text" name="type_price1" value={inputValue1} onChange={numberCheck1} placeholder="입력해주세요."/></td>
-                          <td><input type="text" name="type_price2" value={inputValue2} onChange={numberCheck2} placeholder="입력해주세요."/></td>
-                          <td><input type="text" name="type_price3" value={inputValue3} onChange={numberCheck3} placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_price1" value={inputValue1} onChange={numberCheck1} placeholder="입력해주세요." value={inputs.type_price1}/></td>
+                          <td><input type="text" name="type_price2" value={inputValue2} onChange={numberCheck2} placeholder="입력해주세요." value={inputs.type_price2}/></td>
+                          <td><input type="text" name="type_price3" value={inputValue3} onChange={numberCheck3} placeholder="입력해주세요." value={inputs.type_price3}/></td>
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>작업 기간 *</h4></td>
-                          <td><input type="text" name="type_lt1" placeholder="입력해주세요." onChange={onChange}/></td>
-                          <td><input type="text" name="type_lt2" placeholder="입력해주세요." onChange={onChange}/></td>
-                          <td><input type="text" name="type_lt3" placeholder="입력해주세요." onChange={onChange}/></td>
+                          <td><input type="text" name="type_lt1" placeholder="입력해주세요." onChange={onChange} value={inputs.type_lt1}/></td>
+                          <td><input type="text" name="type_lt2" placeholder="입력해주세요." onChange={onChange} value={inputs.type_lt2}/></td>
+                          <td><input type="text" name="type_lt3" placeholder="입력해주세요." onChange={onChange} value={inputs.type_lt3}/></td>
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>수정 횟수 *</h4></td>
-                          <td><input type="text" name="type_mod_num1" placeholder="입력해주세요." onChange={onChange}/></td>
-                          <td><input type="text" name="type_mod_num2" placeholder="입력해주세요." onChange={onChange}/></td>
-                          <td><input type="text" name="type_mod_num3" placeholder="입력해주세요." onChange={onChange}/></td>
+                          <td><input type="text" name="type_mod_num1" placeholder="입력해주세요." onChange={onChange} value={inputs.type_mod_num1}/></td>
+                          <td><input type="text" name="type_mod_num2" placeholder="입력해주세요." onChange={onChange} value={inputs.type_mod_num2}/></td>
+                          <td><input type="text" name="type_mod_num3" placeholder="입력해주세요." onChange={onChange} value={inputs.type_mod_num3}/></td>
                         </tr>
                       </tbody>
                     </table>
@@ -426,7 +437,7 @@ const MyProject = (props) => {
                   <div className="input-row">
                     <label><h4>서비스 설명</h4></label>
                     <Editor
-                      initialValue="서비스 설명을 입력해주세요!"
+                      initialValue={inputs.full_description==""?"서비스 설명을 입력해주세요!":inputs.full_description}
                       previewStyle="vertical"
                       height="300px"
                       initialEditType="wysiwyg"

@@ -69,14 +69,14 @@ const ProductDescriptionInfo = ({
         <Nav variant="pills" className="description-review-topbar">
           <Nav.Item>
             <Nav.Link eventKey="standard">
-            standard
+            STANDARD
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="deluxe">deluxe</Nav.Link>
+            <Nav.Link eventKey="deluxe">DELUXE</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="premium">premium</Nav.Link>
+            <Nav.Link eventKey="premium">PREMIUM</Nav.Link>
           </Nav.Item>
         </Nav>
         <Tab.Content className="description-review-bottom">
@@ -85,7 +85,7 @@ const ProductDescriptionInfo = ({
               <h2>{product.variation[0].TYPE_PRICE} <span>(VAT포함가)</span></h2>
               <hr/>
               <p>{product.variation[0].TYPE_NAME}</p>
-              <p>{product.variation[0].TYPE_EXPLN}</p>
+              <p dangerouslySetInnerHTML={{__html:product.variation[0].TYPE_EXPLN.replaceAll("\n","<br/>")}}></p>
               <p>작업기간 {product.variation[0].TYPE_LT}</p>
               <p>수정횟수 {product.variation[0].TYPE_MOD_NUM}</p>              
             </div>
@@ -95,7 +95,7 @@ const ProductDescriptionInfo = ({
               <h2>{product.variation[1].TYPE_PRICE} <span>(VAT포함가)</span></h2>
               <hr/>
               <p>{product.variation[1].TYPE_NAME}</p>
-              <p>{product.variation[1].TYPE_EXPLN}</p>
+              <p dangerouslySetInnerHTML={{__html:product.variation[1].TYPE_EXPLN.replaceAll("\n","<br/>")}}></p>
               <p>작업기간 {product.variation[1].TYPE_LT}</p>
               <p>수정횟수 {product.variation[1].TYPE_MOD_NUM}</p>
             </div>            
@@ -105,16 +105,14 @@ const ProductDescriptionInfo = ({
               <h2>{product.variation[2].TYPE_PRICE} <span>(VAT포함가)</span></h2>
               <hr/>
               <p>{product.variation[2].TYPE_NAME}</p>
-              <p>{product.variation[2].TYPE_EXPLN}</p>
+              <p dangerouslySetInnerHTML={{__html:product.variation[2].TYPE_EXPLN.replaceAll("\n","<br/>")}}></p>
               <p>작업기간 {product.variation[2].TYPE_LT}</p>
               <p>수정횟수 {product.variation[2].TYPE_MOD_NUM}</p>
             </div>
           </Tab.Pane>
         </Tab.Content>
       </Tab.Container>
-        
-        
-        
+
       </div>
 
       {product.affiliateLink ? (
