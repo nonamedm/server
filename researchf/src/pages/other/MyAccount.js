@@ -8,6 +8,7 @@ import MyProject from "../../components/other/MyProject";
 import Purchase from "../../components/other/Purchase";
 import Suggestion from "../../components/other/Suggestion";
 import MyService from "../../components/other/MyService";
+import Portfolio from "../../components/other/Portfolio";
 import MyAccountMenu from "../../components/other/MyAccountMenu";
 import ProjectModalSet from "../../components/other/ProjectModalSet";
 import ProjectEditModalSet from "../../components/other/ProjectEditModalSet";
@@ -140,6 +141,12 @@ const MyAccount = () => {
                 {
                   myAccountMenuName=="myServices"?
                   <MyService myServiceData={myServiceData} ></MyService>
+                  :
+                  null
+                }
+                {
+                  myAccountMenuName=="portfolio"?
+                  <Portfolio></Portfolio>
                   :
                   null
                 }

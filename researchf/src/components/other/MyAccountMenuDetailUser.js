@@ -134,7 +134,7 @@ const MyAccountMenuDetail = (props) => {
           <div className="single-my-account mb-20">
             <div className="single-my-account mb-20">
               <h2 className="panel-heading">
-                <p href="" style={{cursor:"default", color:"#c8c8c8"}}>Portfolio(준비중)</p>                            
+                <p href="" onClick={(e)=>{myAccountMenuName("portfolio", e)}}>Portfolio</p>                            
               </h2>
             </div>
           </div>

@@ -380,9 +380,6 @@ const MyProject = (props) => {
                         </tr>
                       </thead>
                       <tbody>
-                        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet" /> 
-                        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-                        <script src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>제목 *</h4></td>
                           <td><input type="text" name="type_name1" onChange={onChange} placeholder="프로젝트명을 입력하세요." value={inputs.type_name1}/></td>
