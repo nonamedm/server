@@ -403,9 +403,9 @@ const MyProject = (props) => {
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>금액<span style={{fontSize:"5px"}}>(VAT포함) </span>*</h4></td>
-                          <td><input type="text" name="type_price1" value={inputValue1} onChange={numberCheck1} placeholder="입력해주세요." value={inputs.type_price1}/></td>
-                          <td><input type="text" name="type_price2" value={inputValue2} onChange={numberCheck2} placeholder="입력해주세요." value={inputs.type_price2}/></td>
-                          <td><input type="text" name="type_price3" value={inputValue3} onChange={numberCheck3} placeholder="입력해주세요." value={inputs.type_price3}/></td>
+                          <td><input type="text" name="type_price1" value={inputValue1} onChange={numberCheck1} placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_price2" value={inputValue2} onChange={numberCheck2} placeholder="입력해주세요."/></td>
+                          <td><input type="text" name="type_price3" value={inputValue3} onChange={numberCheck3} placeholder="입력해주세요."/></td>
                         </tr>
                         <tr>
                           <td style={{verticalAlign:"middle"}}><h4>작업 기간 *</h4></td>
