@@ -411,8 +411,7 @@ app.post('/serviceInsert', function(request, response){
   let id = "";
   const sku = data.sku;
   const name = data.name;
-  const price = Math.min(data.type_price1,data.type_price2,data.type_price3);
-  console.log(price);
+  
   //var 최소값 = Math.min(변수1, 변수2, 변수3);
   const discount = "0";
   const offer_end = "2023-12-31 23:59:59";
@@ -429,9 +428,10 @@ app.post('/serviceInsert', function(request, response){
   const type_expln1 = data.type_expln1;
   const type_expln2 = data.type_expln2;
   const type_expln3 = data.type_expln3;
-  const type_price1 = data.type_price1;
-  const type_price2 = data.type_price2;
-  const type_price3 = data.type_price3;
+  const type_price1 = data.type_price1.replace(/[^0-9]/g, '');
+  const type_price2 = data.type_price2.replace(/[^0-9]/g, '');
+  const type_price3 = data.type_price3.replace(/[^0-9]/g, '');
+  const price = Math.min(data.type_price1,data.type_price2,data.type_price3);
   const type_lt1 = data.type_lt1;
   const type_lt2 = data.type_lt2;
   const type_lt3 = data.type_lt3;
@@ -541,6 +541,96 @@ app.post('/serviceInsert', function(request, response){
   });
 
 })
+app.post('/portfolioInsert', function(request, response){
+  //console.log(request.body);
+  // console.log(data.stay_yn);
+  var msg = "";
+  var userId = request.body.userId;
+  var data = request.body.data;
+
+  //const id = data.id;
+  //ID는 여기서 쿼리 날린 후 MAX처리 하자.
+  // var maxSql = "SELECT IFNULL(MAX(ID)+1,1) as ID FROM PRODUCTS";
+  // let id = "";
+  const seller_id = userId;
+  const name = data.name;
+  const client = data.client;
+  const lt = data.lt;
+  
+  console.log(request.body); 
+    
+  insertValArr = [seller_id, name, client, lt];
+  var sql = "";
+  sql = "INSERT INTO PRODUCTS_PORTFOLIO (SELLER_ID, NAME, CLIENT, LT, REGIST_DT, UPDATE_DT, DELETE_YN)";
+  sql +="VALUES(?, ?, ?, ?, now(), now(), 'N');";
+  connection.query(sql, insertValArr, function(err, result){
+    console.log(sql);
+    if(err) {
+      console.log(err);
+      msg=0;
+    } else {
+      const id = '';
+      const maxSql = "SELECT MAX(IDX) AS ID FROM PRODUCTS_PORTFOLIO WHERE SELLER_ID='"+seller_id+"';";
+      connection.query(maxSql, insertValArr, function(err, result){
+        if(err) {
+          console.log(err);
+          msg=0;
+        } else {
+          // console.log("이얍",result[0].ID);
+
+          var maxVal = result[0].ID;
+          var sql2 = ` INSERT INTO PRODUCTS_PORTFOLIO_IMAGE
+          (PORT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN, IMAGE_TYPE)
+          VALUES(?, ?, ?, ?, ?, now(), now(), 'N', '0'); `
+          var imageName = request.body.imgData1.name;
+          var imagePath = request.body.imgData1.path.replace("researchf\\public","");
+          var imageExt = request.body.imgData1.ext;
+          var imageSize = request.body.imgData1.size;
+          var sql2param = [maxVal,imageName,imagePath,imageExt,imageSize];
+          var sql2s = mysql.format(sql2,sql2param);
+    
+          
+          for(let i = 0; i < request.body.imgData2.length; i++) {
+            // console.log("사이즈",[i]);
+            // console.log(request.body.imgData2[i]);
+            var sql2_1 = ` INSERT INTO PRODUCTS_PORTFOLIO_IMAGE
+            (PORT_ID, IMAGE_NAME, IMAGE_PATH, IMAGE_EXT, IMAGE_SIZE, REGIST_DT, UPDATE_DT, DELETE_YN, IMAGE_TYPE)
+            VALUES(?, ?, ?, ?, ?, now(), now(), 'N', '1'); `
+            var imageName_1 = request.body.imgData2[i].name;
+            var imagePath_1 = request.body.imgData2[i].path.replace("researchf\\public","");
+            var imageExt_1 = request.body.imgData2[i].ext;
+            var imageSize_1 = request.body.imgData2[i].size;
+            var sql2param_1 = [maxVal,imageName_1,imagePath_1,imageExt_1,imageSize_1];
+            var sql2s_1 = mysql.format(sql2_1,sql2param_1);
+            connection.query(sql2s_1, function (err, result, field) {
+              if(err) {
+                console.log(err);
+              } else {
+              }
+      
+            });
+          }
+          
+    
+          connection.query(sql2s, function (err, result, field) {
+            if(err) {
+              console.log(err);
+              msg=0;
+            } else {
+              msg=1;
+            }
+    
+          });
+
+        }
+      });
+      
+      response.send(msg);
+    }
+  });
+  
+
+})
 
 app.post('/allProducts', function(request, response){
 
@@ -564,6 +654,7 @@ app.post('/allProducts', function(request, response){
 
     //var products_image_temp= [];
     result[0].map((a,i)=>{
+      
       const products_category = [];
       const products_image = [];
       const products_variation = [];
@@ -583,6 +674,9 @@ app.post('/allProducts', function(request, response){
       const products_variation_temp = result[3].filter((e)=>{
         //console.log(result[0][i].ID);
         if(e.PRODUCT_ID==result[0][i].id) {
+          var temp = result[3][i].TYPE_PRICE;
+          temp = temp.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g,',');
+          result[3][i].TYPE_PRICE = temp;
           return true;
         }
       });

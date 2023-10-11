@@ -96,17 +96,24 @@ const MyProject = (props) => {
   const numberCheck1 = (e) => {
     const {name, value} = e.target;
     // 숫자만 남기고 나머지는 제거
-    const numericValue = value.replace(/[^0-9]/g, '');
-    setInputValue1(numericValue);
+    const numericValue = value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g,',');
+
+    const option = {
+      maximumFractionDigits: 4
+    };
+    const cn1 = numericValue.toLocaleString('ko-KR', option);
+
+
+    setInputValue1(cn1);
     setInputs({
       ...inputs,
-      [name]: numericValue
+      [name]: cn1
     });
   };
   const numberCheck2 = (e) => {
     const {name, value} = e.target;
     // 숫자만 남기고 나머지는 제거
-    const numericValue = value.replace(/[^0-9]/g, '');
+    const numericValue = value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g,',');
     setInputValue2(numericValue);
     setInputs({
       ...inputs,
@@ -116,7 +123,7 @@ const MyProject = (props) => {
   const numberCheck3 = (e) => {
     const {name, value} = e.target;
     // 숫자만 남기고 나머지는 제거
-    const numericValue = value.replace(/[^0-9]/g, '');
+    const numericValue = value.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g,',');
     setInputValue3(numericValue);
     setInputs({
       ...inputs,

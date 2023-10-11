@@ -80,7 +80,7 @@ const Portfolio = (props) => {
     var userId = sessionStorage.getItem("loginId");
 
     try{
-      const response = await axios.post(apiUrl+'/serviceInsert',{
+      const response = await axios.post(apiUrl+'/portfolioInsert',{
         userId: userId,
         data: inputs,
         imgData1: imgData1,
