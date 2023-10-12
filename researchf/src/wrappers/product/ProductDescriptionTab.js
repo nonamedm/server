@@ -2,30 +2,54 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
+import Swiper, { SwiperSlide } from "../../components/swiper";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
+  const { products } = useSelector((state) => state.product);
+  console.log(products);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const thumbnailSwiperParams = {
+    onSwiper: setThumbsSwiper,
+    spaceBetween: 10,
+    slidesPerView: 4,
+    touchRatio: 0.2,
+    freeMode: true,
+    loop: true,
+    slideToClickedSlide: true,
+    navigation: true
+  };
+
   return (
     <div className={clsx("description-review-area", spaceBottomClass)}>
       <div className="container">
         <div className="description-review-wrapper">
-          <Tab.Container defaultActiveKey="productDescription">
+          <Tab.Container defaultActiveKey="Portfolio">
             <Nav variant="pills" className="description-review-topbar">
               <Nav.Item>
-                <Nav.Link eventKey="additionalInfo">
-                  Additional Information
-                </Nav.Link>
+                <Nav.Link eventKey="Portfolio">Portfolio</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="productDescription">Description</Nav.Link>
+                <Nav.Link eventKey="Description">Description</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="productReviews">Reviews(2)</Nav.Link>
+                <Nav.Link eventKey="Price Info">Price Info</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="Modify">Modify</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="Cancel">Cancel·Refund</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="Reviews">Reviews</Nav.Link>
               </Nav.Item>
             </Nav>
             <Tab.Content className="description-review-bottom">
               {/*<Tab.Pane eventKey="additionalInfo">*/}
                 <div className="product-anotherinfo-wrapper">
-                  <ul>
+                  {/* <ul>
                     <li>
                       <span>Weight</span> 400 g
                     </li>
@@ -39,7 +63,23 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                       <span>Other Info</span> American heirloom jean shorts pug
                       seitan letterpress
                     </li>
-                  </ul>
+                  </ul> */}
+                  <div className="product-small-image-wrapper mt-15">
+                    
+                  <Swiper options={thumbnailSwiperParams}>
+                    {products[0].image.map((single, key) => (
+                      <SwiperSlide key={key}>
+                        <div className="single-image">
+                          <img
+                            src={process.env.PUBLIC_URL + single}
+                            className="img-fluid"
+                            alt=""
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                  </div>
                 </div>
               {/*</Tab.Pane>*/}
               {/*<Tab.Pane eventKey="productDescription">*/}
