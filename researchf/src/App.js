@@ -7,7 +7,9 @@ const HomeFashionTwo = lazy(() => import("./pages/home/HomeFashionTwo"));
 
 // shop pages
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
+const ShopGridStandard2 = lazy(() => import("./pages/shop/ShopGridStandard2"));
 const ShopGridFilter = lazy(() => import("./pages/shop/ShopGridFilter"));
+const ShopGridFilter2 = lazy(() => import("./pages/shop/ShopGridFilter2"));
 
 // product pages
 const Product = lazy(() => import("./pages/shop-product/Product"));
@@ -59,8 +61,16 @@ const App = () => {
                 element={<ShopGridStandard/>}
               />
               <Route
+                path={process.env.PUBLIC_URL + "/shop-grid-standard2"}
+                element={<ShopGridStandard2/>}
+              />
+              <Route
                 path={process.env.PUBLIC_URL + "/shop-grid-filter"}
                 element={<ShopGridFilter/>}
+              />
+              <Route
+                path={process.env.PUBLIC_URL + "/shop-grid-filter2"}
+                element={<ShopGridFilter2/>}
               />
 
               {/* Shop product pages */}

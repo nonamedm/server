@@ -706,6 +706,27 @@ app.post('/allProducts', function(request, response){
 
 })
 
+app.post('/allRequests', function(request, response){
+
+  var sql1 = `SELECT IDX, STAY_YN, OUTSOURCING_YN, BUDGET, GOV_SUPPORT,
+              CATEGORY1, CATEGORY2, POSITION_NM, PERSONAL_YN, CORP_YN, PERSONAL_NM,
+              NOW_STATUS1, NOW_STATUS2, NOW_STATUS3, NOW_STATUS4, DETAIL_CONT, DETAIL_PRICE,
+              DUE_DT, REGIST_DT, UPDATE_DT, DELETE_YN, REQ_USER_ID, APPROVAL_STATUS
+                FROM PROJECT_REQUEST;   `;
+  var requests = [];
+  connection.query(sql1, function (err, result, field) {
+    if(err) console.log(err);
+
+    requests=result;
+    console.log(requests);
+
+    response.send(result);
+  });
+  
+
+
+})
+
 
 app.post('/uploadFiles', function(request, response){
   

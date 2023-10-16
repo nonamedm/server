@@ -239,7 +239,8 @@ const NavMenu = ({ menuWhiteClass, sidebarMenu }) => {
             </Link> */}
           </li>
           <li>
-            <Link to={process.env.PUBLIC_URL + "/contact"}>
+            <Link to={"/shop-grid-standard2"}>
+            {/* <Link to={process.env.PUBLIC_URL + "/contact"}> */}
               {"의뢰"}
             </Link>
           </li>

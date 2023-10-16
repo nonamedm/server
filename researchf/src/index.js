@@ -5,6 +5,7 @@ import App from "./App";
 import { store } from "./store/store";
 import PersistProvider from "./store/providers/persist-provider";
 import { setProducts } from "./store/slices/product-slice"
+import { setRequests } from "./store/slices/request-slice"
 import 'animate.css';
 import 'swiper/swiper-bundle.min.css';
 import "yet-another-react-lightbox/styles.css";
@@ -26,6 +27,18 @@ axios.post(apiUrl+'/allProducts').then(function (response) {
   console.log(response.data);
   let products = response.data;
   store.dispatch(setProducts(products));
+}).catch(function(error) {
+
+}).then(function () {
+  //finally
+});
+
+
+axios.post(apiUrl+'/allRequests').then(function (response) {
+  console.log(response.data);
+  let requests = response.data;
+  store.dispatch(setRequests(requests));
+  
 }).catch(function(error) {
 
 }).then(function () {
