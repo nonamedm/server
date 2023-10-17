@@ -82,7 +82,7 @@ const ProductDescriptionInfo = ({
         <Tab.Content className="description-review-bottom">
           <Tab.Pane eventKey="standard">
             <div className="">
-              <h2>{currency.currencySymbol+" "+product.variation[0].TYPE_PRICE} <span>(VAT포함가)</span></h2>
+              <h2>{currency.currencySymbol+" "+product.variation[0].TYPE_PRICE+" 원"} <span>(VAT포함가)</span></h2>
               <hr/>
               <p>{product.variation[0].TYPE_NAME}</p>
               <p dangerouslySetInnerHTML={{__html:product.variation[0].TYPE_EXPLN.replaceAll("\n","<br/>")}}></p>
@@ -92,7 +92,7 @@ const ProductDescriptionInfo = ({
           </Tab.Pane>
           <Tab.Pane eventKey="deluxe">
             <div className="">
-              <h2>{product.variation[1].TYPE_PRICE} <span>(VAT포함가)</span></h2>
+              <h2>{currency.currencySymbol+" "+product.variation[1].TYPE_PRICE+" 원"} <span>(VAT포함가)</span></h2>
               <hr/>
               <p>{product.variation[1].TYPE_NAME}</p>
               <p dangerouslySetInnerHTML={{__html:product.variation[1].TYPE_EXPLN.replaceAll("\n","<br/>")}}></p>
@@ -102,7 +102,7 @@ const ProductDescriptionInfo = ({
           </Tab.Pane>
           <Tab.Pane eventKey="premium">
             <div className="">
-              <h2>{product.variation[2].TYPE_PRICE} <span>(VAT포함가)</span></h2>
+              <h2>{currency.currencySymbol+" "+product.variation[2].TYPE_PRICE+" 원"} <span>(VAT포함가)</span></h2>
               <hr/>
               <p>{product.variation[2].TYPE_NAME}</p>
               <p dangerouslySetInnerHTML={{__html:product.variation[2].TYPE_EXPLN.replaceAll("\n","<br/>")}}></p>
