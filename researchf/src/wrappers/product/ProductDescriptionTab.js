@@ -73,7 +73,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
             </Nav>
             <Tab.Content className="description-review-bottom">
               {/* <Tab.Pane eventKey="Portfolio"> */}
-                <div id="portfolio"  ref={portfolioRef} className="product-anotherinfo-wrapper">
+                <div id="portfolio"  ref={portfolioRef} className="product-anotherinfo-wrapper product-info">
                   <div className="product-small-image-wrapper mt-15">                    
                   <Swiper options={thumbnailSwiperParams}>
                     {products[0].image.map((single, key) => (
@@ -93,10 +93,10 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
                 </div>
               {/* </Tab.Pane> */}
               {/* <Tab.Pane eventKey="Description"> */}
-                <div id="description" className="full-description" ref={descriptionRef} dangerouslySetInnerHTML={{__html:productFullDesc}}></div>
+                <div id="description" className="full-description product-info" ref={descriptionRef} dangerouslySetInnerHTML={{__html:productFullDesc}}></div>
               {/* </Tab.Pane> */}
               {/* <Tab.Pane eventKey="Price Info"> */}
-                <div id="priceInfo" className="price-info-table" ref={priceInfoRef}>
+                <div id="priceInfo" className="price-info-table product-info" ref={priceInfoRef}>
                   <div className="price-info-tr">
                     <div className="price-info-th"></div>
                     <div className="price-info-th">
@@ -162,7 +162,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
                 </div>
               {/* </Tab.Pane> */}
               {/* <Tab.Pane eventKey="Reviews"> */}
-                <div id="reviews" className="row" ref={reviewRef}>
+                <div id="reviews" className="row product-info" ref={reviewRef}>
                   <div className="col-lg-7">
                     <div className="review-wrapper">
                       <div className="single-review">

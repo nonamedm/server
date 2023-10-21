@@ -1,10 +1,27 @@
+@import url('https://webfontworld.github.io/SCoreDream/SCoreDream.css');
+@import url('https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css');
+@font-face {
+    font-family: 'ChosunBg';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunBg.woff') format('woff');
+}
+@import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
+/*
+font-family: 'NanumSquareLight';
+font-family: 'NanumSquare';
+font-family: 'NanumSquareBold';
+font-family: 'NanumSquareExtraBold';
+font-family: 'NanumSquareAcb';
+font-family: 'NanumSquareAceb';
+font-family: 'NanumSquareAcl';
+font-family: 'NanumSquareAcr';
+*/
 // Font Family
-$poppins: "Poppins", sans-serif;
-$abrilfatface: "Abril Fatface", cursive;
-$cormorantgaramond: "Cormorant Garamond";
-$greatvibes: "Great Vibes", cursive;
-$lobster: "Lobster", cursive;
-$josefin: "Josefin Sans", sans-serif;
+$poppins: "Noto Sans KR", "Sans-serif";
+$abrilfatface: "Noto Sans KR", "Sans-serif";
+$cormorantgaramond: "Noto Sans KR", "Sans-serif";
+$greatvibes: "Noto Sans KR", "Sans-serif";
+$lobster: "Noto Sans KR", "Sans-serif";
+$josefin: "Noto Sans KR", "Sans-serif";
 
 // text Colors ---------------
 

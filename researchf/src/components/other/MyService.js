@@ -406,7 +406,7 @@ const MyProject = (props) => {
                           </td>
                         </tr>
                         <tr>
-                          <td style={{verticalAlign:"middle"}}><h4>금액<span style={{fontSize:"5px"}}>(VAT포함) </span>*</h4></td>
+                          <td style={{verticalAlign:"middle"}}><h4>금액<span style={{fontSize:"10px"}}>(VAT포함) </span>*</h4></td>
                           <td><input type="text" name="type_price1" value={inputValue1} onChange={numberCheck1} placeholder="입력해주세요."/></td>
                           <td><input type="text" name="type_price2" value={inputValue2} onChange={numberCheck2} placeholder="입력해주세요."/></td>
                           <td><input type="text" name="type_price3" value={inputValue3} onChange={numberCheck3} placeholder="입력해주세요."/></td>
@@ -439,7 +439,7 @@ const MyProject = (props) => {
               <div>
                 <div className="my-service-insert">
                   <div className="input-row">
-                    <label><h4>서비스 설명</h4></label>
+                    {/* <label><h4>서비스 설명</h4></label> */}
                     <Editor
                       initialValue={inputs.full_description==""?"서비스 설명을 입력해주세요!":inputs.full_description}
                       previewStyle="vertical"

@@ -45,10 +45,10 @@ export const getProductCartQuantity = (cartItems, product, color, size) => {
     if (product.variation) {
       return cartItems.find(
         single =>
-          single.id === product.id &&
-          single.selectedProductColor === color &&
-          single.selectedProductSize === size
-      ).quantity;
+          single.id === product.id //&&
+          // single.selectedProductColor === color &&
+          // single.selectedProductSize === size
+      );
     } else {
       return cartItems.find(single => product.id === single.id).quantity;
     }

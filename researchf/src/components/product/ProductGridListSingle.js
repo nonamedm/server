@@ -20,7 +20,7 @@ const ProductGridListSingle = ({
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
+  const finalProductPrice = (product.price * currency.currencyRate).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',');
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
   ).toFixed(2);
@@ -48,12 +48,12 @@ const ProductGridListSingle = ({
             </Link>
             {product.discount || product.new ? (
               <div className="product-img-badges">
-                {product.discount ? (
+                {/* {product.discount ? (
                   <span className="pink">-{product.discount}%</span>
                 ) : (
                   ""
                 )}
-                {product.new ? <span className="purple">New</span> : ""}
+                {product.new ? <span className="purple">New</span> : ""} */}
               </div>
             ) : (
               ""
@@ -121,11 +121,11 @@ const ProductGridListSingle = ({
             </div>
           </div>
           <div className="product-content text-center">
-            <h3>
+            <h5>
               <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
                 {product.name}
               </Link>
-            </h3>
+            </h5>
             {product.rating && product.rating > 0 ? (
               <div className="product-rating">
                 <Rating ratingValue={product.rating} />
@@ -138,7 +138,7 @@ const ProductGridListSingle = ({
                 <Fragment>
                   <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
                   <span className="old">
-                    {currency.currencySymbol + finalProductPrice}
+                    {currency.currencySymbol + finalProductPrice} 
                   </span>
                 </Fragment>
               ) : (
@@ -170,12 +170,12 @@ const ProductGridListSingle = ({
                   </Link>
                   {product.discount || product.new ? (
                     <div className="product-img-badges">
-                      {product.discount ? (
+                      {/* {product.discount ? (
                         <span className="pink">-{product.discount}%</span>
                       ) : (
                         ""
                       )}
-                      {product.new ? <span className="purple">New</span> : ""}
+                      {product.new ? <span className="purple">New</span> : ""} */}
                     </div>
                   ) : (
                     ""

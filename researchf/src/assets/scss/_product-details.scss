@@ -102,7 +102,7 @@
 
 
 .full-description >p > img {
-  width:80%;
+  width:100%;
 }
 
 .description-review-wrapper {
@@ -208,6 +208,9 @@
 }
 
 .description-review-bottom {
+  .product-info {
+    margin-top: 25px;
+  }
   padding: 33px 0 0;
   .product-description-wrapper {
     p {

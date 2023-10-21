@@ -431,7 +431,7 @@ app.post('/serviceInsert', function(request, response){
   const type_price1 = data.type_price1.replace(/[^0-9]/g, '');
   const type_price2 = data.type_price2.replace(/[^0-9]/g, '');
   const type_price3 = data.type_price3.replace(/[^0-9]/g, '');
-  const price = Math.min(data.type_price1,data.type_price2,data.type_price3);
+  const price = Math.min(type_price1,type_price2,type_price3);
   const type_lt1 = data.type_lt1;
   const type_lt2 = data.type_lt2;
   const type_lt3 = data.type_lt3;
@@ -674,9 +674,9 @@ app.post('/allProducts', function(request, response){
       const products_variation_temp = result[3].filter((e)=>{
         //console.log(result[0][i].ID);
         if(e.PRODUCT_ID==result[0][i].id) {
-          var temp = result[3][i].TYPE_PRICE;
-          temp = temp.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g,',');
-          result[3][i].TYPE_PRICE = temp;
+          // var temp = result[3][i].TYPE_PRICE;
+          // temp = temp.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g,',');
+          // result[3][i].TYPE_PRICE = temp;
           return true;
         }
       });
