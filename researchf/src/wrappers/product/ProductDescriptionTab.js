@@ -7,6 +7,20 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetail }) => {
+
+  const [scroll, setScroll] = useState(0);
+  const [headerTop, setHeaderTop] = useState(0);
+
+  useEffect(() => {
+    const header = document.querySelector(".sticky-bar");
+    header.removeAttribute("class","stick");
+  }, []);
+
+  const handleScroll = () => {
+    setScroll(window.scrollY);
+  };
+
+
   const { products } = useSelector((state) => state.product);
   //console.log(products);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);

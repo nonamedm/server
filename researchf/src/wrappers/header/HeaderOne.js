@@ -6,6 +6,7 @@ import NavMenu from "../../components/header/NavMenu";
 import IconGroup from "../../components/header/IconGroup";
 import MobileMenu from "../../components/header/MobileMenu";
 import HeaderTop from "../../components/header/HeaderTop";
+import { useLocation } from "react-router-dom";
 
 const HeaderOne = ({
   layout,
@@ -30,6 +31,8 @@ const HeaderOne = ({
   const handleScroll = () => {
     setScroll(window.scrollY);
   };
+  const location = useLocation();
+  console.log(location.pathname.indexOf('product'));
 
   return (
     <header className={clsx("header-area clearfix", headerBgClass, headerPositionClass)}>
@@ -46,41 +49,65 @@ const HeaderOne = ({
           <HeaderTop borderStyle={borderStyle} />
         </div>
       </div>
-
-      {/* <div
-        className={clsx(
-          headerPaddingClass, 
-          "sticky-bar header-res-padding clearfix", 
-          scroll > headerTop && "stick"
-        )}
-      > */}
-      <div
-        className={clsx(
-          headerPaddingClass, 
-          "sticky-bar header-res-padding clearfix"
-        )}
-      >
-        
-      <div className="col-xl-2 col-lg-2 col-md-6 col-4" style={{marginLeft: "92px"}}>
-        {/* header logo */}
-        <Logo imageUrl="/assets/img/logo/logo.png" logoClass="logo" />
-      </div>
-        <div className={layout === "container-fluid" ? layout : "container"}>
-          
-          <div className="row">
-            <div className="col-xl-10 col-lg-10 d-none d-lg-block">
-              {/* Nav menu */}
-              <NavMenu />
-            </div>
-            <div className="col-xl-2 col-lg-2 col-md-6 col-8">
-              {/* Icon group */}
-              <IconGroup />
+      {
+        location.pathname.indexOf('product') > 0 ?
+        <div
+          className={clsx(
+            headerPaddingClass, 
+            "sticky-bar header-res-padding clearfix"
+          )}
+        >
+          <div className="col-xl-2 col-lg-2 col-md-6 col-4" style={{marginLeft: "92px"}}>
+            {/* header logo */}
+            <Logo imageUrl="/assets/img/logo/logo.png" logoClass="logo" />
+          </div>
+          <div className={layout === "container-fluid" ? layout : "container"}>
+            
+            <div className="row">
+              <div className="col-xl-10 col-lg-10 d-none d-lg-block">
+                {/* Nav menu */}
+                <NavMenu />
+              </div>
+              <div className="col-xl-2 col-lg-2 col-md-6 col-8">
+                {/* Icon group */}
+                <IconGroup />
+              </div>
             </div>
           </div>
+          {/* mobile menu */}
+          <MobileMenu />
         </div>
-        {/* mobile menu */}
-        <MobileMenu />
-      </div>
+        :
+        <div
+          className={clsx(
+            headerPaddingClass, 
+            "sticky-bar header-res-padding clearfix", 
+            scroll > headerTop && "stick"
+          )}
+        >
+          <div className="col-xl-2 col-lg-2 col-md-6 col-4" style={{marginLeft: "92px"}}>
+            {/* header logo */}
+            <Logo imageUrl="/assets/img/logo/logo.png" logoClass="logo" />
+          </div>
+          <div className={layout === "container-fluid" ? layout : "container"}>
+            
+            <div className="row">
+              <div className="col-xl-10 col-lg-10 d-none d-lg-block">
+                {/* Nav menu */}
+                <NavMenu />
+              </div>
+              <div className="col-xl-2 col-lg-2 col-md-6 col-8">
+                {/* Icon group */}
+                <IconGroup />
+              </div>
+            </div>
+          </div>
+          {/* mobile menu */}
+          <MobileMenu />
+        </div>
+      }   
+        
+        
     </header>
   );
 };
