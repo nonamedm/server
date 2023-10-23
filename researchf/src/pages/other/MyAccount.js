@@ -107,7 +107,7 @@ const MyAccount = () => {
           ]} 
         />
 
-        <div className="contact-area pt-100 pb-100">
+        <div className="contact-area pt-150 pb-100">
           <div className="container">
             <div className="custom-row-2">
               <div className="col-12 col-lg-3 col-md-4">
