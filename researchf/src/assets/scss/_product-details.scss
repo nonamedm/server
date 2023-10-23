@@ -154,7 +154,7 @@
   }
 }
 
-.description-review-topbar, .sticky {
+.description-review-topbar-sticky {
   position: sticky;
   top: 125px;
   z-index: 100;
@@ -209,7 +209,13 @@
 
 .description-review-bottom {
   .product-info {
-    margin-top: 25px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+  .product-info-label {
+    font-weight: 700;
+    font-size: 20px;
+    color: #303441;
   }
   padding: 33px 0 0;
   .product-description-wrapper {
@@ -704,7 +710,7 @@
 }
 
 .shop-area {
-  .sticky {
+  .description-review-topbar-sticky {
     top: 70px !important;
   }
 }

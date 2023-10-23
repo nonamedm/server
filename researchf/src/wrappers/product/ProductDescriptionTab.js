@@ -51,7 +51,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
       <div className="container">
         <div className="description-review-wrapper">
           <Tab.Container defaultActiveKey="Portfolio">
-            <Nav variant="pills" className="description-review-topbar sticky">
+            <Nav variant="pills" className="description-review-topbar description-review-topbar-sticky">
               <Nav.Item>
                 <Nav.Link eventKey="Portfolio" onClick={()=>{onMoveToElement("Portfolio")}}>Portfolio</Nav.Link>
               </Nav.Item>
@@ -73,7 +73,8 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
             </Nav>
             <Tab.Content className="description-review-bottom">
               {/* <Tab.Pane eventKey="Portfolio"> */}
-                <div id="portfolio"  ref={portfolioRef} className="product-anotherinfo-wrapper product-info">
+              <div id="portfolioLabel" className="product-info-label" ref={portfolioRef}><span>포트폴리오</span></div>
+                <div id="portfolio"  className="product-anotherinfo-wrapper product-info">
                   <div className="product-small-image-wrapper mt-15">                    
                   <Swiper options={thumbnailSwiperParams}>
                     {products[0].image.map((single, key) => (
@@ -93,10 +94,12 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
                 </div>
               {/* </Tab.Pane> */}
               {/* <Tab.Pane eventKey="Description"> */}
-                <div id="description" className="full-description product-info" ref={descriptionRef} dangerouslySetInnerHTML={{__html:productFullDesc}}></div>
+                <div id="descriptionLabel" className="product-info-label" ref={descriptionRef}><span>서비스 설명</span></div>
+                <div id="description" className="full-description product-info" dangerouslySetInnerHTML={{__html:productFullDesc}}></div>
               {/* </Tab.Pane> */}
               {/* <Tab.Pane eventKey="Price Info"> */}
-                <div id="priceInfo" className="price-info-table product-info" ref={priceInfoRef}>
+                <div id="priceInfoLabel" className="product-info-label" ref={priceInfoRef}><span>가격 정보</span></div>
+                <div id="priceInfo" className="price-info-table product-info">
                   <div className="price-info-tr">
                     <div className="price-info-th"></div>
                     <div className="price-info-th">
@@ -162,7 +165,8 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
                 </div>
               {/* </Tab.Pane> */}
               {/* <Tab.Pane eventKey="Reviews"> */}
-                <div id="reviews" className="row product-info" ref={reviewRef}>
+                <div id="reviewsLabel" className="product-info-label" ref={reviewRef}><span>리뷰</span></div>
+                <div id="reviews" className="row product-info">
                   <div className="col-lg-7">
                     <div className="review-wrapper">
                       <div className="single-review">
@@ -243,9 +247,9 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
                       </div>
                     </div>
                   </div>
-                  {/* <div className="col-lg-5">
+                  <div className="col-lg-5">
                     <div className="ratting-form-wrapper pl-50">
-                      <h3>Add a Review</h3>
+                      <span>Add a Review</span>
                       <div className="ratting-form">
                         <form action="#">
                           <div className="star-box">
@@ -283,7 +287,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
                         </form>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
               {/* </Tab.Pane> */}
             </Tab.Content>

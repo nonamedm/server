@@ -47,18 +47,26 @@ const HeaderOne = ({
         </div>
       </div>
 
-      <div
+      {/* <div
         className={clsx(
           headerPaddingClass, 
           "sticky-bar header-res-padding clearfix", 
           scroll > headerTop && "stick"
         )}
+      > */}
+      <div
+        className={clsx(
+          headerPaddingClass, 
+          "sticky-bar header-res-padding clearfix stick"
+        )}
       >
+        
+      <div className="col-xl-2 col-lg-2 col-md-6 col-4" style={{marginLeft: "92px"}}>
+        {/* header logo */}
+        <Logo imageUrl="/assets/img/logo/logo.png" logoClass="logo" />
+      </div>
         <div className={layout === "container-fluid" ? layout : "container"}>
-          <div className="col-xl-2 col-lg-2 col-md-6 col-4">
-            {/* header logo */}
-            <Logo imageUrl="/assets/img/logo/logo.png" logoClass="logo" />
-          </div>
+          
           <div className="row">
             <div className="col-xl-10 col-lg-10 d-none d-lg-block">
               {/* Nav menu */}
