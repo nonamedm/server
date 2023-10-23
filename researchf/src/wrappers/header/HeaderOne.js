@@ -57,7 +57,7 @@ const HeaderOne = ({
       <div
         className={clsx(
           headerPaddingClass, 
-          "sticky-bar header-res-padding clearfix stick"
+          "sticky-bar header-res-padding clearfix"
         )}
       >
         
