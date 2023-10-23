@@ -162,6 +162,30 @@
   padding-top: 10px;
   background-color: #fff;
 } 
+
+.port-swiper-wrapper {
+  display: flex;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: #fff;
+  opacity: 0.6;
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  color: black !important;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+}
+.img-fluid {
+  cursor: pointer;
+}
+
 .description-review-topbar {
   display: flex;
   //justify-content: center;

@@ -51,12 +51,12 @@ const ProductGridSingleTwo = ({
           </Link>
           {product.discount || product.new ? (
             <div className="product-img-badges">
-              {product.discount ? (
+              {/* {product.discount ? (
                 <span className="pink">-{product.discount}%</span>
               ) : (
                 ""
               )}
-              {product.new ? <span className="purple">New</span> : ""}
+              {product.new ? <span className="purple">New</span> : ""} */}
             </div>
           ) : (
             ""
@@ -74,12 +74,13 @@ const ProductGridSingleTwo = ({
                 <i className="fa fa-shopping-cart"></i>{" "}
               </a>
             ) : product.variation && product.variation.length >= 1 ? (
-              <Link
-                to={`${process.env.PUBLIC_URL}/product/${product.id}`}
-                title="Select options"
-              >
-                <i className="fa fa-cog"></i>
-              </Link>
+              null
+              // <Link
+              //   to={`${process.env.PUBLIC_URL}/product/${product.id}`}
+              //   title="Select options"
+              // >
+              //   <i className="fa fa-cog"></i>
+              // </Link>
             ) : product.stock && product.stock > 0 ? (
               <button
                 onClick={() => dispatch(addToCart(product))}

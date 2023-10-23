@@ -32,7 +32,7 @@ const HeaderOne = ({
     setScroll(window.scrollY);
   };
   const location = useLocation();
-  console.log(location.pathname.indexOf('product'));
+  
 
   return (
     <header className={clsx("header-area clearfix", headerBgClass, headerPositionClass)}>

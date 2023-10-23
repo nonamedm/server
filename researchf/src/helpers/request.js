@@ -82,7 +82,7 @@ export const getSortedRequests = (requests, sortType, sortValue) => {
         return sortRequests;
       }
       if (sortValue === "priceHighToLow") {
-        console.log(requests);
+        //console.log(requests);
         return sortRequests.sort((a, b) => {
           return b.price - a.price;
         });

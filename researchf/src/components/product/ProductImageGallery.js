@@ -1,70 +1,82 @@
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
-import { EffectFade, Thumbs } from 'swiper';
 import AnotherLightbox from "yet-another-react-lightbox";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
-import Swiper, { SwiperSlide } from "../../components/swiper";
+import {Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination } from "swiper";
 
 const ProductImageGallery = ({ product }) => {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  SwiperCore.use([Navigation, Pagination]);
+  const [thumbIndex, setThumbsIndex] = useState(0);
   const [index, setIndex] = useState(-1);
   const slides = product?.image.map((img, i) => ({
       src: process.env.PUBLIC_URL + img,
       key: i,
   }));
 
-  // swiper slider settings
-  const gallerySwiperParams = {
-    spaceBetween: 10,
-    loop: true,
-    effect: "fade",
-    fadeEffect: {
-      crossFade: true
-    },
-    thumbs: { swiper: thumbsSwiper },
-    modules: [EffectFade, Thumbs],
-  };
-
-  const thumbnailSwiperParams = {
-    onSwiper: setThumbsSwiper,
-    spaceBetween: 10,
-    slidesPerView: 4,
-    touchRatio: 0.2,
-    freeMode: true,
-    loop: true,
-    slideToClickedSlide: true,
-    navigation: true
-  };
 
   return (
     <Fragment>
-      <div className="product-large-image-wrapper">
-        {product.discount || product.new ? (
-          <div className="product-img-badges">
-            {product.discount ? (
-              <span className="pink">-{product.discount}%</span>
-            ) : (
-              ""
-            )}
-            {product.new ? <span className="purple">New</span> : ""}
-          </div>
-        ) : (
-          ""
-        )}
+      <div className="product-small-image-wrapper mt-15">
         {product?.image?.length ? (
-          <Swiper options={gallerySwiperParams}>
+          <div>
+            {product.image.map((single, key) => (
+               thumbIndex==key?
+                <div className="single-image" key={key}>
+                  <img
+                    src={process.env.PUBLIC_URL + single}
+                    className="img-fluid"                    
+                    onClick={() => setIndex(key)}
+                    alt=""
+                  />
+                </div>
+                : null                
+            ))}
+          </div>
+        ) : null}
+      </div>
+      <div className="product-large-image-wrapper mt-5">
+        {product?.image?.length ? (
+          <Swiper spaceBetween={50}
+            slidesPerView={3}
+            onSlideChange={()=>{}}
+            onSwiper={(swiper)=>null}
+            navigation
+            //pagination={{ clickable: true }}
+            breakpoints={{
+              // when window width is >= 320px
+              320: {
+                slidesPerView: 3,
+                spaceBetween: 20
+              },
+              // when window width is >= 480px
+              480: {
+                slidesPerView: 3,
+                spaceBetween: 30
+              },
+              // when window width is >= 640px
+              640: {
+                slidesPerView: 3,
+                spaceBetween: 40
+              },
+              768: {
+                slidesPerView: 3,
+              },
+            }}
+          >
             {product.image.map((single, key) => (
               <SwiperSlide key={key}>
-                <button className="lightgallery-button" onClick={() => setIndex(key)}>
+                {/* <button className="lightgallery-button" onClick={() => setIndex(key)}>
                   <i className="pe-7s-expand1"></i>
-                </button>
+                </button> */}
                 <div className="single-image">
                   <img
                     src={process.env.PUBLIC_URL + single}
                     className="img-fluid"
                     alt=""
+                    onClick={() => setThumbsIndex(key)}
                   />
                 </div>
               </SwiperSlide>
@@ -80,23 +92,7 @@ const ProductImageGallery = ({ product }) => {
         ) : null}
 
       </div>
-      <div className="product-small-image-wrapper mt-15">
-        {product?.image?.length ? (
-          <Swiper options={thumbnailSwiperParams}>
-            {product.image.map((single, key) => (
-              <SwiperSlide key={key}>
-                <div className="single-image">
-                  <img
-                    src={process.env.PUBLIC_URL + single}
-                    className="img-fluid"
-                    alt=""
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        ) : null}
-      </div>
+      
     </Fragment>
   );
 };

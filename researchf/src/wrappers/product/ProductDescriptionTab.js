@@ -2,38 +2,16 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
-import Swiper, { SwiperSlide } from "../../components/swiper";
+import {Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination } from "swiper";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import PortfolioDetail from "./PortfolioDetail";
 
 const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetail }) => {
-
-  const [scroll, setScroll] = useState(0);
-  const [headerTop, setHeaderTop] = useState(0);
-
-  useEffect(() => {
-    const header = document.querySelector(".sticky-bar");
-    header.removeAttribute("class","stick");
-  }, []);
-
-  const handleScroll = () => {
-    setScroll(window.scrollY);
-  };
-
-
+  SwiperCore.use([Navigation, Pagination]);
   const { products } = useSelector((state) => state.product);
   //console.log(products);
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const thumbnailSwiperParams = {
-    onSwiper: setThumbsSwiper,
-    spaceBetween: 10,
-    slidesPerView: 4,
-    touchRatio: 0.2,
-    freeMode: true,
-    loop: true,
-    slideToClickedSlide: true,
-    navigation: true
-  };
   const portfolioRef = useRef(null);
   const descriptionRef = useRef(null);
   const priceInfoRef = useRef(null);
@@ -90,7 +68,34 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
               <div id="portfolioLabel" className="product-info-label" ref={portfolioRef}><span>포트폴리오</span></div>
                 <div id="portfolio"  className="product-anotherinfo-wrapper product-info">
                   <div className="product-small-image-wrapper mt-15">                    
-                  <Swiper options={thumbnailSwiperParams}>
+                  <Swiper 
+                    spaceBetween={50}
+                    slidesPerView={3}
+                    onSlideChange={()=>{}}
+                    onSwiper={(swiper)=>null}
+                    navigation
+                    //pagination={{ clickable: true }}
+                    breakpoints={{
+                      // when window width is >= 320px
+                      320: {
+                        slidesPerView: 1,
+                        spaceBetween: 20
+                      },
+                      // when window width is >= 480px
+                      480: {
+                        slidesPerView: 2,
+                        spaceBetween: 30
+                      },
+                      // when window width is >= 640px
+                      640: {
+                        slidesPerView: 2,
+                        spaceBetween: 40
+                      },
+                      768: {
+                        slidesPerView: 3,
+                      },
+                    }}
+                  >
                     {products[0].image.map((single, key) => (
                       <SwiperSlide key={key}>
                         <div className="single-image">
@@ -103,7 +108,8 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
                         </div>
                       </SwiperSlide>
                     ))}
-                  </Swiper>
+                    
+                  </Swiper> 
                   </div>
                 </div>
               {/* </Tab.Pane> */}
@@ -308,6 +314,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
           </Tab.Container>
         </div>
       </div>
+      <PortfolioDetail></PortfolioDetail>
     </div>
   );
 };
