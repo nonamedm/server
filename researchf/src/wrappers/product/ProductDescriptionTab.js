@@ -13,7 +13,6 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
   // var apiUrl = "http://localhost:8001"; //개발서버용
   var apiUrl = ""; //운영서버용
 
-  
   SwiperCore.use([Navigation, Pagination]);
   const { products } = useSelector((state) => state.product);
   //console.log(products);
@@ -22,15 +21,16 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
   const priceInfoRef = useRef(null);
   const reviewRef = useRef(null);
   
+  let [onPortfolioDetail, setOnPortfolioDetail] = useState(false);
   let [portfolioDetail, setPortfolioDetail] = useState([]);
   let [portfolioIdx, setPortfolioIdx] = useState(0);
-  let sessionStorage = window.sessionStorage;
-  var loginId = sessionStorage.getItem("loginId");
+  var sellerId = productDetail.sellerId;
+
   useEffect(() => {
     axios.post(apiUrl+'/portfolioDetail',{
-      userId: loginId
+      userId: sellerId
     }).then(function (response) {
-      console.log("portfolioQuery",response.data);
+      //console.log("portfolioQuery",response.data);
       let portfolioDetailCopy = [...portfolioDetail];
       response.data.map((a,i)=>{
         portfolioDetailCopy.push(response.data[i]);
@@ -86,9 +86,9 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
               <Nav.Item>
                 <Nav.Link eventKey="Cancel">Cancel·Refund</Nav.Link>
               </Nav.Item> */}
-              <Nav.Item>
+              {/* <Nav.Item>
                 <Nav.Link eventKey="Reviews" onClick={()=>{onMoveToElement("Reviews")}}>Reviews</Nav.Link>
-              </Nav.Item>
+              </Nav.Item> */}
             </Nav>
             <Tab.Content className="description-review-bottom">
               {/* <Tab.Pane eventKey="Portfolio"> */}
@@ -133,7 +133,8 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
                               className="img-fluid"
                               alt=""
                               onClick={()=>{
-                                setPortfolioIdx(i);
+                                setPortfolioIdx(key);
+                                setOnPortfolioDetail(true);
                               }}
                             />
                           </div>
@@ -217,7 +218,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
                   </div>
                 </div>
               {/* </Tab.Pane> */}
-              {/* <Tab.Pane eventKey="Reviews"> */}
+              {/* <Tab.Pane eventKey="Reviews">
                 <div id="reviewsLabel" className="product-info-label" ref={reviewRef}><span>리뷰</span></div>
                 <div id="reviews" className="row product-info">
                   <div className="col-lg-7">
@@ -341,16 +342,21 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               {/* </Tab.Pane> */}
             </Tab.Content>
           </Tab.Container>
         </div>
       </div>
-      <PortfolioDetail 
-        portfolioDetail = {portfolioDetail}
-        portfolioIdx = {portfolioIdx}
-      />
+      {
+        onPortfolioDetail==true?
+        <PortfolioDetail 
+          portfolioDetail = {portfolioDetail}
+          portfolioIdx = {portfolioIdx}
+          onHide={()=>setOnPortfolioDetail(false)}
+        />:
+        null
+      }
     </div>
   );
 };

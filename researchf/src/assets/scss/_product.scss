@@ -1407,8 +1407,24 @@
 
 .product-wrap-2 {
   position: relative;
-
   overflow: hidden;
+  .swiper-button-prev {
+    transition: all 0.4s ease-in-out;
+    transform: scaleX(0);
+  }
+  .swiper-button-next {
+    transition: all 0.4s ease-in-out;
+    transform: scaleX(0);
+  }
+  &:hover .swiper-button-prev {       
+    transform: scaleX(1);
+  }
+  &:hover .swiper-button-next {
+    transform: scaleX(1);
+  }
+  .swiper-button-disabled {
+    pointer-events: auto !important;
+  }
   .product-img {
     position: relative;
     img {
@@ -1456,8 +1472,8 @@
       justify-content: center;
 
       width: 100%;
-
-      transform: translateY(-50%);
+      z-index: 10;
+      // transform: translateY(-50%);
       a,
       button {
         font-size: 16px;

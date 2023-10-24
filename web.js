@@ -635,7 +635,7 @@ app.post('/portfolioDetail', function(request, response){
   var msg = "";
   var userId = request.body.userId;
     
-  var sql1 = " SELECT * FROM PRODUCTS_PORTFOLIO WHERE SELLER_ID=? AND DELETE_YN='N' ;";
+  var sql1 = " SELECT * FROM PRODUCTS_PORTFOLIO WHERE SELLER_ID=? AND DELETE_YN='N' ORDER BY IDX DESC ;";
   var sql1param = [userId];
   var sql1s = mysql.format(sql1,sql1param);
   

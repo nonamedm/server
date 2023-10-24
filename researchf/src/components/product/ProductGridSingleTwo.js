@@ -9,6 +9,8 @@ import ShareProductModal from "./ShareProductModal";
 import { addToCart } from "../../store/slices/cart-slice";
 import { addToWishlist, deleteFromWishlist } from "../../store/slices/wishlist-slice";
 import { addToCompare } from "../../store/slices/compare-slice";
+import {Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination } from "swiper";
 
 const ProductGridSingleTwo = ({
   product,
@@ -28,27 +30,56 @@ const ProductGridSingleTwo = ({
     discountedPrice * currency.currencyRate
   ).toFixed(2);
   const dispatch = useDispatch();
-
+  SwiperCore.use([Navigation, Pagination]);
   return (
     <Fragment>
       <div className={clsx("product-wrap-2", spaceBottomClass, colorClass)}>
         <div className="product-img">
-          <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
-            <img
-              className="default-img"
-              src={process.env.PUBLIC_URL + product.image[0]} style={{width:"300px", height:"250px"}}
-              alt=""
-            />
-            {product.image.length > 1 ? (
-              <img
-                className="hover-img"
-                src={process.env.PUBLIC_URL + product.image[1]} style={{width:"300px", height:"250px"}}
-                alt=""
-              />
-            ) : (
-              ""
-            )}
-          </Link>
+          <Swiper 
+            spaceBetween={50}
+            slidesPerView={1}
+            onSlideChange={()=>{}}
+            onSwiper={(swiper)=>null}
+            navigation
+            //pagination={{ clickable: true }}
+            breakpoints={{
+              // when window width is >= 320px
+              320: {
+                slidesPerView: 1,
+                spaceBetween: 20
+              },
+              // when window width is >= 480px
+              480: {
+                slidesPerView: 1,
+                spaceBetween: 30
+              },
+              // when window width is >= 640px
+              640: {
+                slidesPerView: 1,
+                spaceBetween: 40
+              },
+              768: {
+                slidesPerView: 1,
+              },
+            }}
+          >
+            {product.image.map((single, key) => (
+              <SwiperSlide key={key}>
+                <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
+                  <div className="single-image single-image" style={{marginBottom: "15px"}}>
+                    <img
+                      src={process.env.PUBLIC_URL + product.image[key]}
+                      className="img-fluid"
+                      alt=""
+                      onClick={()=>{
+                      }}
+                    />
+                  </div>
+                </Link>
+              </SwiperSlide>
+            ))}
+            
+          </Swiper> 
           {product.discount || product.new ? (
             <div className="product-img-badges">
               {/* {product.discount ? (
