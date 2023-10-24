@@ -186,6 +186,29 @@
   cursor: pointer;
 }
 
+
+.portfolio-detail {
+  position: fixed; 
+  left: 50%;
+  top: 50%; 
+  transform: translate(-50%, -50%);
+  width: 750px;
+  height: 600px;
+  z-index: 100;
+}
+.portfolio-heading {
+  display: flex;
+}
+.portfolio-body {
+  display: flex;
+  height: 70%;
+  overflow-y: scroll;
+}
+.portfolio-footer {
+  height: 20%;
+}
+
+
 .description-review-topbar {
   display: flex;
   //justify-content: center;
@@ -775,6 +798,9 @@
       object-fit: cover;
       object-position: center;
     }
+  }
+  .single-image-port {
+    max-height: 175px;
   }
   .swiper-container-vertical {
     height: 100%;

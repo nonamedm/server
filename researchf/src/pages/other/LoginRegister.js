@@ -27,6 +27,8 @@ const LoginRegister = () => {
         let sessionStorage = window.sessionStorage;
         sessionStorage.setItem("loginId", response.data.userId);
         sessionStorage.setItem("loginName", response.data.userName);
+
+        //세션 -> 로컬로 로그인정보 공유 필요, 창닫을 때 액션 추가
         window.location.href="/";
 
       }

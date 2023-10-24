@@ -559,7 +559,7 @@ app.post('/portfolioInsert', function(request, response){
   
   console.log(request.body); 
     
-  insertValArr = [seller_id, name, client, lt];
+  var insertValArr = [seller_id, name, client, lt];
   var sql = "";
   sql = "INSERT INTO PRODUCTS_PORTFOLIO (SELLER_ID, NAME, CLIENT, LT, REGIST_DT, UPDATE_DT, DELETE_YN)";
   sql +="VALUES(?, ?, ?, ?, now(), now(), 'N');";
@@ -567,16 +567,15 @@ app.post('/portfolioInsert', function(request, response){
     console.log(sql);
     if(err) {
       console.log(err);
-      msg=0;
+      msg="0";
     } else {
       const id = '';
       const maxSql = "SELECT MAX(IDX) AS ID FROM PRODUCTS_PORTFOLIO WHERE SELLER_ID='"+seller_id+"';";
       connection.query(maxSql, insertValArr, function(err, result){
         if(err) {
           console.log(err);
-          msg=0;
+          msg="0";
         } else {
-          // console.log("이얍",result[0].ID);
 
           var maxVal = result[0].ID;
           var sql2 = ` INSERT INTO PRODUCTS_PORTFOLIO_IMAGE
@@ -615,9 +614,9 @@ app.post('/portfolioInsert', function(request, response){
           connection.query(sql2s, function (err, result, field) {
             if(err) {
               console.log(err);
-              msg=0;
+              msg="0";
             } else {
-              msg=1;
+              msg="1";
             }
     
           });
@@ -626,6 +625,44 @@ app.post('/portfolioInsert', function(request, response){
       });
       
       response.send(msg);
+    }
+  });
+  
+
+})
+
+app.post('/portfolioDetail', function(request, response){
+  var msg = "";
+  var userId = request.body.userId;
+    
+  var sql1 = " SELECT * FROM PRODUCTS_PORTFOLIO WHERE SELLER_ID=? AND DELETE_YN='N' ;";
+  var sql1param = [userId];
+  var sql1s = mysql.format(sql1,sql1param);
+  
+  var sql2 = " SELECT * FROM PRODUCTS_PORTFOLIO_IMAGE";
+
+  connection.query(sql1s+sql2, function (err, result, field) {
+    if(err) {
+      console.log(err);
+      msg="0";
+    } else {
+      msg="1";
+
+      result[0].map((a,i)=>{
+        const port_image = [];
+        const port_image_temp = result[1].filter((e)=>{
+          //console.log(result[0][i].ID);
+          if(e.PORT_ID==result[0][i].IDX) {
+            return true;
+          }
+        });
+        port_image_temp.map((a,i)=>{
+          //console.log(products_category_temp[i].CATEGORY_NAME)
+          port_image.push({"path":port_image_temp[i].IMAGE_PATH, "type":port_image_temp[i].IMAGE_TYPE});
+        })
+        result[0][i].image=port_image;
+      });
+      response.send(result[0]);
     }
   });
   

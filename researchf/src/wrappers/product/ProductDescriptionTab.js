@@ -1,3 +1,4 @@
+import axios from "axios";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import Tab from "react-bootstrap/Tab";
@@ -8,7 +9,11 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import PortfolioDetail from "./PortfolioDetail";
 
-const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetail }) => {
+const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetail }) => {  
+  // var apiUrl = "http://localhost:8001"; //개발서버용
+  var apiUrl = ""; //운영서버용
+
+  
   SwiperCore.use([Navigation, Pagination]);
   const { products } = useSelector((state) => state.product);
   //console.log(products);
@@ -17,6 +22,28 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
   const priceInfoRef = useRef(null);
   const reviewRef = useRef(null);
   
+  let [portfolioDetail, setPortfolioDetail] = useState([]);
+  let [portfolioIdx, setPortfolioIdx] = useState(0);
+  let sessionStorage = window.sessionStorage;
+  var loginId = sessionStorage.getItem("loginId");
+  useEffect(() => {
+    axios.post(apiUrl+'/portfolioDetail',{
+      userId: loginId
+    }).then(function (response) {
+      console.log("portfolioQuery",response.data);
+      let portfolioDetailCopy = [...portfolioDetail];
+      response.data.map((a,i)=>{
+        portfolioDetailCopy.push(response.data[i]);
+        setPortfolioDetail(portfolioDetailCopy);
+      });
+    }).catch(function(error) {
+    
+    }).then(function () {
+      //finally
+    });
+    
+  }, []);
+
   const onMoveToElement = (param) => {
     switch(param) {
       case "Portfolio" :
@@ -96,16 +123,22 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
                       },
                     }}
                   >
-                    {products[0].image.map((single, key) => (
+                    {portfolioDetail.map((single, key) => (
                       <SwiperSlide key={key}>
-                        <div className="single-image">
-                          <img
-                            src={process.env.PUBLIC_URL + single}
-                            className="img-fluid"
-                            alt=""
-                            onClick={()=>{alert("포트폴리오 선택")}}
-                          />
-                        </div>
+                        {portfolioDetail[key].image.map((a,i)=>(
+                          portfolioDetail[key].image[i].type==0?
+                          <div className="single-image single-image-port" key={i}>
+                            <img
+                              src={process.env.PUBLIC_URL + portfolioDetail[key].image[i].path}
+                              className="img-fluid"
+                              alt=""
+                              onClick={()=>{
+                                setPortfolioIdx(i);
+                              }}
+                            />
+                          </div>
+                          : null
+                        ))}
                       </SwiperSlide>
                     ))}
                     
@@ -314,7 +347,10 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc, productDetai
           </Tab.Container>
         </div>
       </div>
-      <PortfolioDetail></PortfolioDetail>
+      <PortfolioDetail 
+        portfolioDetail = {portfolioDetail}
+        portfolioIdx = {portfolioIdx}
+      />
     </div>
   );
 };
